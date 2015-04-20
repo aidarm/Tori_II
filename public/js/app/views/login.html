@@ -1,0 +1,15 @@
+<form class="loginForm" data-ng-submit="submitForm()">
+
+    <h2>Sign in</h2>
+
+    <label>Username</label><br/>
+    <input type="text" data-ng-model="form.username" autofocus/><br/>
+
+    <label>Password</label><br/>
+    <input type="password" data-ng-model="form.password"/><br/>
+
+    <button type="submit">GO!</button>
+
+    <div class="login_error" data-ng-show="message"><div class="data_icon" data-icon="&#xe607;"></div>{{ message }}</div>
+
+</form>

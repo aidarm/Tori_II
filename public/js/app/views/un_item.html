@@ -1,0 +1,24 @@
+﻿<div class="info">
+    <h2>{{ item.title }}</h2>
+    <p class="subheading">{{ item.city }} / {{ item.date | date:'MMMM d, yyyy'}}</p>
+    <div class="img_container">
+        <img data-ng-src="{{ item.image }}">
+    </div>
+    <div class="price_container">
+        <p>{{ item.price | currency: '&euro;' }}</p>
+    </div>
+    <div class="desc_container">
+        <p>{{ item.description }}</p>
+    </div>
+    <div class="contacts_container">
+        <div>
+            <p>{{ item.name }}</p>
+            <p>tel. {{ item.phone }}</p>
+            <p>{{ item.email }}</p>
+        </div>
+    </div>
+    <div class="un_buttons">
+        <button data-ng-click="approve(item.ID, item.category)">APPROVE</button>
+        <button data-ng-click="reject(item.ID, item.category)">REJECT</button>
+    </div>
+</div>

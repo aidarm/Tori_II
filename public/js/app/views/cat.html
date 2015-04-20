@@ -1,0 +1,15 @@
+<div class="right_container">
+    <h1 class="pageHeading">{{ pageHeading | capitalize }}</h1>
+    <ul>
+        <li class="block" data-ng-repeat="item in data | orderBy : 'ID' : reverse=true" data-ng-click="showItem(item.ID, item.category)" data-super-hover>
+            <div class="image_height">
+                <img data-ng-src="{{ item.image }}">
+            </div>
+            <div class="text_section">
+                <h1>{{ item.title }}</h1>
+                <h2>{{ item.price | currency: '&euro;' }}</h2>
+                <p>{{ item.city }}, {{ item.date | date:'MMMM d' }}</p>
+            </div>
+        </li>
+    </ul>
+</div>
