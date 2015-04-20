@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userService = require("../services/item-service");
+var itemService = require("../services/item-service");
 
 router.get('/create', function(req, res, next) {
   res.render('item/create');
@@ -8,7 +8,7 @@ router.get('/create', function(req, res, next) {
 });
 
 router.post('/create', function(req, res, next) {
-  userService.addItem(req.body, function(err) {
+  itemService.addItem(req.body, function(err) {
     if (err) {
       console.log(err);
       var vm = {

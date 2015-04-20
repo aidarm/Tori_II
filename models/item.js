@@ -10,6 +10,7 @@ var itemSchema = new Schema({
   city: String,
   phone: String,
   img: String,
+  approved: {type: Number, default: 0},
   created: {type: Date, default: Date.now}
 });
 

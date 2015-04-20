@@ -4,10 +4,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
+var passport = require('passport');
+var expressSession = require('express-session');
 
 var config = require("./config");
 var routes = require('./routes/index');
 var item = require('./routes/item');
+
+var passportConfig = require('./auth/passport-config');
+//var restrict = require('./auth/restrict');
+passportConfig();
 
 mongoose.connect(config.mongoUri);
 
@@ -22,6 +28,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(expressSession(
+    {
+        secret: 'slashman',
+        saveUninitialized: false,
+        resave: false
+    }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/item', item);

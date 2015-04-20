@@ -238,6 +238,7 @@ app.controller('placeController', ['$scope', '$http', '$location', function ($sc
         
         $http.post('/item/create', $scope.form).
             success(function(data) {
+                $scope.closeThisDialog();
                 console.log(data);
                 $location.path('/');
             }).error(function(err) {
@@ -249,11 +250,29 @@ app.controller('placeController', ['$scope', '$http', '$location', function ($sc
 
 // LOGIN POP-UP WINDOW CONTROLLER
 
-app.controller('loginController', ['$scope', function($scope, loginService){
+app.controller('loginController', ['$scope', '$http', '$location', '$window', 'ngDialog', function($scope, $http, $location, $window, ngDialog){
 
 // 	$scope.submitForm = function(){
 // 		return loginService.login($scope.form, $scope);
 // 	};
+
+    $scope.form = {};
+    $scope.errorMessage = '';
+    
+    $scope.submitForm = function() {
+        console.log("dsffdsfdssfd");
+        console.log($scope.form);
+        
+        $http.post('/login', $scope.form).
+            success(function(data) {
+                console.log(data);
+                //$location.path('/');
+                $window.location.reload();
+            }).error(function(err) {
+                console.log("ERROR!");
+                $scope.errorMessage = err;
+            });
+    }
 
 }]);
 
