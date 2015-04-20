@@ -1,0 +1,784 @@
+@import "bourbon/bourbon";
+@import "neat/neat";
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+  text-decoration: none;
+  list-style: none;
+  color: #3b3b3b;
+}
+
+[data-icon]::before {
+  font-family: icomoon;
+  content: attr(data-icon);
+  margin-right: 8px;
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+}
+
+a {
+  cursor: pointer;
+}
+
+.wrapper {
+  @include outer-container;
+  width: 1000px;
+  margin-bottom: 100px;
+}
+
+header {
+  @include row();
+  @include pad(0);
+  background-color: #fff;
+  height: 100px;
+  box-sizing: content-box;
+
+  .logo {
+    @include span-columns(3);
+    text-transform: lowercase;
+    text-align: center;
+    display: table;
+    height: 100%;
+
+    a {
+      font-family: 'Londrina Solid', cursive;
+      color: #00abec;
+      font-size: 5em;
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  nav {
+    @include span-columns(9);
+    height: 100%;
+    display: table;
+    text-align: center;
+    position: relative;
+
+    div {
+      text-align: center;
+      cursor: pointer;
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    ul {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 0;
+      float: right;
+      position: absolute;
+      top: 0px;
+      right: 20px;
+      border: 1px dashed #3b3b3b;
+    }
+
+    li {
+      float: left;
+      margin: 0;
+      padding: 10px 15px;
+      width: 175px;
+
+      letter-spacing: -1px;
+      cursor: pointer;
+
+      &:nth-child(2) {
+        border-left: 1px dashed #3b3b3b;
+      }
+    }
+
+    a {
+      text-shadow : 0px 0px 1px #ddd;
+      font-weight: 300;
+      color: #3b3b3b;
+      display: inline-block;
+      width: 100%;
+    }
+
+    input {
+      color: #aaa;
+      padding: 2px 8px;
+      width: 275px;
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+.top_container {
+  @include row();
+  @include pad(20px 0px 15px 0px);
+  text-shadow : 0px 0px 1px #ddd;
+  border: 1px solid #CCCCCC;
+  @include background-image(linear-gradient(180deg, #fcfcfc 10%, #ffffff 90%));
+
+  ul {
+    margin: 0 25px;
+    padding: 0;
+    border: 1px solid #ccc;
+    display: inline-block;
+    border-radius: 5px;
+
+    li {
+      padding: 7px 0px;
+      width: 125px;
+      font-weight: 300;
+      letter-spacing: -1px;
+      float: left;
+      border-right: 1px solid #ccc;
+      cursor: pointer;
+      text-align: center;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    li.selected {
+      background-color: #C1D90D;
+      color: #fff;
+
+      [data-icon]::before {
+        color: #fff;
+      }
+    }
+  }
+
+  select {
+    width: 100%;
+    padding: 2px 7px;
+    border: 1px solid #ccc;
+    font-weight: 300;
+  }
+}
+
+.right_container {
+  @include row();
+  @include span-columns(12);
+  color: #3b3b3b;
+  padding: 0 20px;
+
+  .pageHeading {
+    font-weight: 700;
+    letter-spacing: -5px;
+    font-size: 5em;
+    text-shadow: 0px 0px 1px #ddd;
+    margin: 10px 0;
+    padding:0;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  li.block {
+    @include span-columns(2.4);
+    @include omega(5n);
+
+    height: 185px;
+    padding: 0px;
+    margin-top: 25px;
+    overflow: hidden;
+
+    h1 {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: 700;
+      text-align: center;
+      font-size: 0.8em;
+      color: #3b3b3b;
+    }
+
+    h2 {
+      font-weight: 300;
+      color: #3b3b3b;
+      text-align: center;
+      font-size: 1em;
+      width: 70%;
+      margin-left: 24px;
+      position: absolute;
+      bottom: 18px;
+      border: 1px solid #3b3b3b;
+    }
+
+    p {
+      margin: 0;
+      text-align: center;
+      font-size: 0.8em;
+      font-weight: 400;
+      color: #aaa;
+      padding: 0;
+      display: inline-block;
+      width: 100%;
+      border-top: 1px solid #ccc;
+      position: absolute;
+      bottom: 0;
+    }
+
+  }
+}
+
+div.image_height {
+  height: 95px;
+  overflow: hidden;
+  background-color: #3b3b3b;
+  padding: 0;
+  margin: 0;
+
+  img {
+    width: 100%;
+  }
+}
+
+div.text_section{
+  position: relative;
+  border: 2px solid #ccc;
+  height: 90px;
+  padding: 0;
+  margin: 0;
+}
+
+// CSS CONCERNING DIRECTIVES
+
+.ad_hover {
+  @include transition-duration(0.3s);
+  @include transition-timing-function(cubic-bezier(.01,.73,.28,.99));
+}
+
+.ad_hover:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 0px 5px #00abec;
+}
+
+// INFO CSS --------------------------------------------------------------------------------------
+
+div.info {
+  @include span-columns(8);
+  @include shift(2);
+  margin-top: 40px;
+
+  h2 {
+    text-align: center;
+    font-size: 3.5em;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -3px;
+    text-shadow : 0px 0px 1px #aaaaaa;
+  }
+
+  p.subheading {
+    font-size: 1.75em;
+    font-weight: 300;
+    color: #ccc;
+    text-align: center;
+    margin: 0 0 30px;
+    letter-spacing: -2px;
+  }
+
+  div.desc_container {
+    width: 63%;
+
+    p {
+      font-weight: 300;
+      letter-spacing: -1px;
+    }
+  }
+
+  div.img_container {
+    img {
+      box-shadow: 0px 0px 0px 5px #f1f1f1;
+      display: block;
+      margin: 0 auto 50px;
+      max-width: 100%;
+    }
+  }
+
+  div.price_container {
+    float: right;
+    font-size: 2em;
+    font-weight: 700;
+    border: 5px solid #3b3b3b;
+    color: #3b3b3b;
+    width: 30%;
+    text-align: center;
+    padding: 15px;
+    letter-spacing: -2px;
+    text-shadow : 0px 0px 1px #aaaaaa;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  div.contacts_container {
+    margin-top: 40px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+
+    p.q {
+      font-size: 2em;
+      font-weight: 700;
+      letter-spacing: -2px;
+      margin-bottom: 5px;
+      text-shadow : 0px 0px 1px #aaaaaa;
+    }
+
+    button {
+      margin: 13px 0 0;
+      background: #C1D90D;
+      color: #fff;
+      border: 0;
+      font-weight: 300;
+      padding: 10px 35px;
+      border-radius: 5px;
+    }
+
+    div {
+      border-top: 7px solid #C1D90D;
+      width: 50%;
+      padding: 20px;
+      margin: 20px auto 0;
+      //background-color: #89c402;
+    }
+
+    div p {
+      font-weight: 300;
+      font-size: 1.25em;
+      margin: 0;
+      letter-spacing: -1px;
+      //color: #fff;
+    }
+  }
+}
+
+// PLACING FORM CSS
+
+form.placingForm {
+  @include span-columns(8);
+  @include shift(2);
+  border: 1px solid #ccc;
+  padding: 25px 50px 50px;
+  margin-top: 40px;
+
+  h2 {
+    text-shadow : 0px 0px 1px #aaaaaa;
+    font-weight: 700;
+    font-size: 5em;
+    letter-spacing: -5px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  label {
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 4px;
+  }
+
+  p {
+    display: inline;
+    font-size: 0.8em;
+    color: #bbb;
+  }
+
+  select {
+    width: 150px;
+    padding: 3px 5px;
+  }
+
+  option {
+    padding-left: 10px;
+  }
+
+  select, option {
+    font-weight: 300;
+  }
+
+  input {
+    padding: 3px 5px;
+    font-weight: 300;
+  }
+
+  input.formTitle {
+    width: 50%;
+  }
+
+  textarea.formDescription {
+    width: 100%;
+    min-height: 100px;
+    max-height: 225px;
+    padding: 4px 7px;
+    font-weight: 300;
+    resize: vertical;
+  }
+
+  input.formImage {
+    width: 50%;
+  }
+
+  div.formCategory {
+    float: right;
+    width: 40%;
+
+    select {
+      width: 100%;
+    }
+  }
+
+  div.formPrice {
+    float: right;
+    width: 40%;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  div.contact_information {
+    background-color: #C1D90D;
+    margin-top: 15px;
+    padding: 20px;
+
+    p {
+      color: #fff;
+    }
+
+    label {
+      margin-top: 0;
+      color: #fff;
+    }
+
+    input {
+      border: 1px solid #fff;
+      margin-bottom: 15px;
+    }
+
+    input.formEmail {
+      width: 50%;
+      margin-bottom: 0;
+    }
+
+    select {
+      border: none;
+    }
+
+    div.notation {
+      float: right;
+      display: inline-block;
+      width: 40%;
+      border: 1px solid #fff;
+      padding: 29px 10px;
+      text-align: center;
+    }
+  }
+
+  div.formButton {
+    text-align: center;
+
+    button {
+      margin: 55px 0 15px;
+      background: #00abec;
+      color: #fff;
+      border: 0;
+      font-weight: 700;
+      padding: 20px 50px;
+      border-radius: 5px;
+      font-size: 1.5em;
+      letter-spacing: -2px;
+    }
+  }
+}
+
+// LOGIN FORM CSS
+
+form.loginForm {
+  text-align: center;
+  padding: 50px 50px 0;
+
+  h2 {
+    text-shadow : 0px 0px 1px #aaaaaa;
+    font-weight: 700;
+    font-size: 4em;
+    letter-spacing: -4px;
+    margin-top: 0;
+    margin-bottom: 70px;
+  }
+
+  label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: 400;
+  }
+
+  input {
+    padding: 3px 5px;
+    margin-bottom: 12px;
+    font-weight: 300;
+  }
+
+  div.login_error {
+    margin-bottom: 20px;
+    background-color: #F27405;
+    color: #fff;
+    display: inline-block;
+    padding: 20px;
+    font-weight: 400;
+  }
+
+  button {
+    margin: 25px 0 50px;
+    background: #C1D90D;
+    color: #fff;
+    border: 0;
+    font-weight: 700;
+    padding: 20px 50px;
+    border-radius: 5px;
+    font-size: 1.5em;
+    letter-spacing: -2px;
+  }
+}
+
+/////////////////////////////////////////////////////// BUTTONS ///////////////////////////////////////////////////////////
+
+.button_section {
+  background-color: #fff;
+  color: #3b3b3b;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+
+  .button_test {
+    color: #3b3b3b;
+    width: 100%;
+    background-color: #fff;
+    border: none;
+    float: right;
+    height: 43px;
+
+    &:nth-child(1) {
+      border-bottom: 1px dashed #3b3b3b;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+/////////////////////////////////////////////////////// CONFIRMATION WINDOWS ///////////////////////////////////////////////////////////
+
+div.confirm {
+  text-align: center;
+
+  h2 {
+    text-align: center;
+    font-size: 5em;
+    line-height: 1em;
+    letter-spacing: -5px;
+    font-weight: bold;
+    height: 50%;
+    text-shadow : 0px 0px 1px #ddd;
+  }
+
+  button {
+    margin: 25px 15px 50px;
+    background: #C1D90D;
+    color: #fff;
+    border: 0;
+    width: 100px;
+    font-weight: 700;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 1.5em;
+    letter-spacing: -2px;
+
+    &:nth-child(3) {
+      background-color: #F27405;
+    }
+  }
+}
+
+form.editForm {
+  padding: 25px 50px 50px;
+  margin-top: 40px;
+
+  h2 {
+    text-shadow : 0px 0px 1px #aaaaaa;
+    font-weight: 700;
+    font-size: 5em;
+    letter-spacing: -4px;
+    margin-top: 0;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  label {
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 4px;
+  }
+
+  p {
+    display: inline;
+    font-size: 0.8em;
+    color: #bbb;
+  }
+
+  select {
+    width: 150px;
+    padding: 3px 5px;
+  }
+
+  option {
+    padding-left: 10px;
+  }
+
+  select, option {
+    font-weight: 300;
+  }
+
+  input {
+    padding: 3px 5px;
+    font-weight: 300;
+  }
+
+  input.formTitle {
+    width: 50%;
+  }
+
+  textarea.formDescription {
+    width: 100%;
+    height: 225px;
+    padding: 4px 7px;
+    font-weight: 300;
+    resize: vertical;
+  }
+
+  input.formImage {
+    width: 40%;
+    clear: both;
+  }
+
+  div.formCategory {
+    float: right;
+    width: 40%;
+
+    select {
+      width: 100%;
+    }
+  }
+
+  div.formPrice {
+    width: 40%;
+    padding-top: 50px;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  img {
+    width: 50%;
+    float: right;
+    box-shadow: 0px 0px 0px 5px #f1f1f1;
+    margin-right: 5px;
+    margin-top: 25px;
+    margin-bottom: 30px;
+  }
+
+  div.contact_information {
+    background-color: #C1D90D;
+    margin-top: 15px;
+    padding: 20px;
+    clear: both;
+
+    p {
+      color: #fff;
+    }
+
+    label {
+      margin-top: 0;
+      color: #fff;
+    }
+
+    input {
+      border: 1px solid #fff;
+      margin-bottom: 15px;
+    }
+
+    input.formEmail {
+      width: 50%;
+      margin-bottom: 0;
+    }
+
+    select {
+      border: none;
+    }
+
+    div.formCity {
+      float: right;
+      width: 40%;
+
+      .formPhone {
+        width: 100%;
+      }
+
+      select {
+        width: 100%;
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  div.formButton {
+    text-align: center;
+
+    button {
+      margin: 55px 25px 15px;
+      background: #00abec;
+      color: #fff;
+      border: 0;
+      width: 150px;
+      font-weight: 700;
+      padding: 15px 35px;
+      border-radius: 5px;
+      font-size: 1.5em;
+      letter-spacing: -2px;
+
+      &:nth-child(2) {
+        background-color: #F27405;
+      }
+    }
+  }
+}
+
+div.un_buttons {
+
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+
+  button {
+    margin: 55px 25px 15px;
+    background: #00abec;
+    color: #fff;
+    border: 0;
+    width: 150px;
+    font-weight: 700;
+    padding: 15px 35px;
+    border-radius: 5px;
+    font-size: 1.5em;
+    letter-spacing: -2px;
+
+    &:nth-child(2) {
+      background-color: #3F2559;
+    }
+  }
+}
