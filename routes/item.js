@@ -26,4 +26,17 @@ router.post('/create', function(req, res, next) {
   });
 });
 
+router.post('/view/:id', function (req, res, next) {
+  console.log(req.params.id);
+  itemService.findOneItem(req.params.id, function(err, item, next) {
+    if (err) {
+      console.log(err);
+    }
+    if (item) {
+      console.log(item);
+      res.send(item);
+    }
+  });
+});
+
 module.exports = router;

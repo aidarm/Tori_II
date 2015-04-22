@@ -54,7 +54,7 @@ app.run(function($rootScope, $location, $http) {
       return $location.path(); 
     },
     function(a){
-      console.log('url has changed: ' + a);
+      console.log('URL has changed to: ' + a);
       $http.get(a)
         .success(function(data) {
             //console.log("this is coming from wherever:");
@@ -76,7 +76,7 @@ app.run(function($rootScope, $location){
 
 app.run(function($rootScope, $location) {
     $rootScope.showItem = function (ID, category) {
-        $location.path('item/' + category + '/' + ID);
+        $location.path('item/view/' + ID);
     };
 });
 

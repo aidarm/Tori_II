@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------HEADER CONTROLLERS --------------------------------------------------------------*/
 
-app.controller('navController', ['$scope', '$rootScope', '$location', 'ngDialog', function($scope, $rootScope, $location, ngDialog){
+app.controller('navController', ['$scope', '$rootScope', 'ngDialog', function($scope, $rootScope, ngDialog){
 
     $scope.goLogin = function(){
         ngDialog.open({
@@ -33,6 +33,15 @@ app.controller('mainController', ['$scope', '$http', '$upload', 'ngDialog', func
     // DatabaseRequest.getData().success(function(data){  // null, null, null
     //     $scope.data = data;
     // });
+    
+    var dbrequest = {
+        data: true
+    }
+    
+    $http.post("/", dbrequest).success(function(data) {
+        console.log(data);
+        $scope.data = data;
+    })
 
     $scope.pageHeading = "The latest ads";
 
@@ -146,15 +155,26 @@ app.controller('categoryController', ['$scope', '$routeParams', function ($scope
 
 app.controller('infoController', ['$scope', '$http', '$routeParams', '$location', 'ngDialog', function ($scope, $http, $routeParams, $location, ngDialog) {
 
-    if ($location.path().substr(0, 6) == '/admin') {
-        $scope.appr = true
-    } else {
-        $scope.appr = null
-    };
+    // if ($location.path().substr(0, 6) == '/admin') {
+    //     $scope.appr = true
+    // } else {
+    //     $scope.appr = null
+    // };
 
     // DatabaseRequest.getData($routeParams.id, $routeParams.category, $scope.appr).success(function(data) {
     //     $scope.item  = data[0];
     // });
+    
+    var dbrequest = {
+        data: true
+    }
+    
+    var path = $location.path();
+    
+    $http.post(path, dbrequest).success(function(data) {
+        console.log(data);
+        $scope.item = data;
+    })
 
     $scope.hideButtShowPar = false;
 
@@ -220,26 +240,20 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
 
 }]);
 
-// PLACING PAGE CONTROLLER
+// AD PLACING PAGE CONTROLLER
 
 app.controller('placeController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
-    
-    // $http.get("/item/create")
-    //     .success(function(data) {
-    //         console.log("this is coming from wherever:" + data);
-    // });
     
     $scope.form = {};
     $scope.errorMessage = '';
     
+    // TODO: Implement error mesage
+    
     $scope.submitForm = function() {
-        console.log("dsffdsfdssfd");
         console.log($scope.form);
-        
         $http.post('/item/create', $scope.form).
             success(function(data) {
-                $scope.closeThisDialog();
-                console.log(data);
+                console.log("The ad was placed");
                 $location.path('/');
             }).error(function(err) {
                 $scope.errorMessage = err;
@@ -252,24 +266,21 @@ app.controller('placeController', ['$scope', '$http', '$location', function ($sc
 
 app.controller('loginController', ['$scope', '$http', '$location', '$window', 'ngDialog', function($scope, $http, $location, $window, ngDialog){
 
-// 	$scope.submitForm = function(){
-// 		return loginService.login($scope.form, $scope);
-// 	};
-
     $scope.form = {};
     $scope.errorMessage = '';
     
+    // TODO: Implement error mesage
+    
     $scope.submitForm = function() {
-        console.log("dsffdsfdssfd");
+        console.log("The login form was submitted");
         console.log($scope.form);
         
         $http.post('/login', $scope.form).
             success(function(data) {
-                console.log(data);
-                //$location.path('/');
-                $window.location.reload();
+                $scope.closeThisDialog();
+                console.log("Signed in successfully");
             }).error(function(err) {
-                console.log("ERROR!");
+                console.log("Invalid credentials");
                 $scope.errorMessage = err;
             });
     }

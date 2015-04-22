@@ -12,7 +12,7 @@ var routes = require('./routes/index');
 var item = require('./routes/item');
 
 var passportConfig = require('./auth/passport-config');
-//var restrict = require('./auth/restrict');
+var restrict = require('./auth/restrict');
 passportConfig();
 
 mongoose.connect(config.mongoUri);
@@ -42,6 +42,8 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/item', item);
+// TODO: Make it mores flexible when you have an admin route OR ??? check routes/index.js
+//app.use(restrict);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

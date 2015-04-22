@@ -25,9 +25,11 @@
 
             <header data-ng-controller="navController">
                 <div class="logo"><a data-ng-href="/">Tori</a></div>
+                <!-- TODO: EDIT! -->
+                {{#if firstName}} Hello, {{firstName}}!{{/if}}
                 <nav>
                     <ul>
-			            <li data-ng-click="goLogout()" data-ng-if="isLogged()"><a data-icon="&#xe603;">sign out</a></li>
+			            <li data-ng-click="gogogo('/logout')"><a data-icon="&#xe603;">sign out</a></li>
                         <li data-ng-click="gogogo('/item/create')" data-ng-hide="isLogged()"><a data-icon="&#xe605;">place an ad</a></li>
 			            <li data-ng-click="goLogin()" data-ng-hide="isLogged()"><a data-icon="&#xe601;">sign in</a></li>
                     </ul>

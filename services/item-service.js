@@ -20,8 +20,14 @@ exports.addItem = function(item, next) {
   });
 };
 
-exports.findItem = function(email, next) {
-  Item.findOne({email: email.toLowerCase()}, function(err, user) {
-    next(err, user);    
+exports.findItem = function(next) {
+  Item.find(function(err, item) {
+    next(err, item);    
+  });
+};
+
+exports.findOneItem = function(id, next) {
+  Item.findOne({_id: id}, function(err, item) {
+    next(err, item);    
   });
 };

@@ -2,7 +2,7 @@
     <h1 class="pageHeading">{{ pageHeading | capitalize }}</h1>
     <ul>
         <li class="block" data-ng-repeat="item in data | orderBy : 'ID' : reverse=true" data-ng-mouseenter="showIt = true" data-ng-mouseleave="showIt = false" data-super-hover>
-            <div class="image_height" data-ng-click="showItem(item.ID, item.category)">
+            <div class="image_height" data-ng-click="showItem(item._id, item.category)">
                 <img data-ng-src="{{ item.image }}">
             </div>
             <div class="text_section">
@@ -12,7 +12,10 @@
                 </div>
                 <h1>{{ item.title }}</h1>
                 <h2>{{ item.price | currency: '&euro;' }}</h2>
-                <p>{{ item.city }}, {{ item.date | date:'MMMM d' }}</p>
+                <p>{{ item.city }} /
+                
+                
+                {{ item.created | date:'MMMM d' }}</p>
             </div>
         </li>
     </ul>
