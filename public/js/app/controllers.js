@@ -160,7 +160,6 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
     
     $http.post(path).success(function(data) {
         $scope.item = data;
-
     });
     
     $scope.hideButtShowPar = false;
@@ -290,7 +289,7 @@ app.controller('adminController', ['$scope', '$location', '$http', function ($sc
     })
 
     $scope.show = function (ID, category) {
-        $location.path('admin/view/' + ID);
+        $location.path('admin/' + ID);
     };
 
 }]);

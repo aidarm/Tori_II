@@ -85,4 +85,22 @@ router.get('/cat/houses', function(req, res, next) {
   res.render('item/cat', req.user);
 });
 
+//THSI SHIT
+router.get('/admin/:itemid', function(req, res, next) {
+  res.render('item/item');
+});
+
+router.post('/admin/:itemid', function (req, res, next) {
+  console.log(req.params.itemid);
+  itemService.findOneItem(req.params.itemid, function(err, item, next) {
+    if (err) {
+      console.log(err);
+    }
+    if (item) {
+      console.log(item);
+      res.send(item);
+    }
+  });
+});
+
 module.exports = router;

@@ -35,13 +35,13 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: "js/app/views/admin.html",
             controller: "adminController"
         }
-    ).when('/admin/view/:id',
+    ).when('/admin/:itemid',
         {
             title: "Tori / Test",
             templateUrl: "js/app/views/un_item.html",
             controller: "infoController"
         }
-    ).otherwise({redirectTo: '/'});
+    )
 
     $locationProvider.html5Mode(true);
 
