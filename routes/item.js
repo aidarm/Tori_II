@@ -7,23 +7,27 @@ router.get('/create', function(req, res, next) {
   //console.log("bla!");
 });
 
-router.post('/create', function(req, res, next) {
-  itemService.addItem(req.body, function(err) {
-    if (err) {
-      console.log(err);
-      var vm = {
-        title: 'Create an account',
-        input: req.body,
-        error: err
-      };
-      delete vm.input.password;
-      return res.render('item/create', vm);
-    }
-    res.send("IT WORKS!");
-    // req.login(req.body, function(err) {
-    //   res.redirect('/');
-    // });
-  });
+// router.post('/create', function(req, res, next) {
+//   itemService.addItem(req.body, function(err) {
+//     if (err) {
+//       console.log(err);
+//       var vm = {
+//         title: 'Create an account',
+//         input: req.body,
+//         error: err
+//       };
+//       delete vm.input.password;
+//       return res.render('item/create', vm);
+//     }
+//     res.send("IT WORKS!");
+//     // req.login(req.body, function(err) {
+//     //   res.redirect('/');
+//     // });
+//   });
+// });
+
+router.get('/view/:id', function(req, res, next) {
+  res.render('item/item');;
 });
 
 router.post('/view/:id', function (req, res, next) {

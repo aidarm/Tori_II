@@ -9,7 +9,7 @@ var itemSchema = new Schema({
   name : String,
   city: String,
   phone: String,
-  img: String,
+  img: {type: String, default: "http://placehold.it/1000x700&text=TEST"}, // TODO: AZURE STORAGE
   approved: {type: Number, default: 0},
   created: {type: Date, default: Date.now}
 });

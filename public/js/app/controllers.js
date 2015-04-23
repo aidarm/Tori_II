@@ -30,20 +30,15 @@ app.controller('filterController', ['$scope', '$location', function($scope, $loc
 
 app.controller('mainController', ['$scope', '$http', '$upload', 'ngDialog', function ($scope, $http, $upload, ngDialog) {
     
-    // DatabaseRequest.getData().success(function(data){  // null, null, null
-    //     $scope.data = data;
-    // });
-    
-    var dbrequest = {
-        data: true
-    }
-    
-    $http.post("/", dbrequest).success(function(data) {
-        console.log(data);
-        $scope.data = data;
-    })
-
     $scope.pageHeading = "The latest ads";
+    
+    $scope.isLogged = function() {
+      return true;  
+    };
+    
+    $http.post("/").success(function(data) {
+        $scope.data = data;
+    });
 
     $scope.deleteItem = function (id, category) {
         ngDialog.open({
@@ -165,14 +160,9 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
     //     $scope.item  = data[0];
     // });
     
-    var dbrequest = {
-        data: true
-    }
-    
     var path = $location.path();
     
-    $http.post(path, dbrequest).success(function(data) {
-        console.log(data);
+    $http.post(path).success(function(data) {
         $scope.item = data;
     })
 
@@ -245,13 +235,10 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
 app.controller('placeController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     
     $scope.form = {};
-    $scope.errorMessage = '';
-    
     // TODO: Implement error mesage
     
     $scope.submitForm = function() {
-        console.log($scope.form);
-        $http.post('/item/create', $scope.form).
+        $http.post('/api/upload', $scope.form).
             success(function(data) {
                 console.log("The ad was placed");
                 $location.path('/');
@@ -275,9 +262,10 @@ app.controller('loginController', ['$scope', '$http', '$location', '$window', 'n
         console.log("The login form was submitted");
         console.log($scope.form);
         
-        $http.post('/login', $scope.form).
+        $http.post('/api/login', $scope.form).
             success(function(data) {
                 $scope.closeThisDialog();
+                $location.path("/");
                 console.log("Signed in successfully");
             }).error(function(err) {
                 console.log("Invalid credentials");

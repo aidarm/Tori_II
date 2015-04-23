@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport');
+//var passport = require('passport');
 var itemService = require('../services/item-service');
 var restrict = require('../auth/restrict');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // if (!req.isAuthenticated()) {
-  //   return res.redirect('/');
-  // };
+  if (req.isAuthenticated()) {
+    console.log("You are authenticated on '/'");
+  };
   
   var vm = {
     firstName: req.user ? req.user.firstName : null
@@ -40,33 +40,37 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/cat/cars', function(req, res, next) {
+  if (req.isAuthenticated()) {
+    console.log("You are authenticated on '/item/cat'");
+  };
   res.render('item/cat');
 });
 
 router.get('/cat/houses', function(req, res, next) {
+  if (req.isAuthenticated()) {
+    console.log("You are authenticated on '/item/cars'");
+  };
   res.render('item/cat');
 });
 
-router.post('/login', 
-  passport.authenticate('local', {
-    // failureRedirect: '/', 
-    // successRedirect: '/',
-  }),
+// router.post('/login', 
+//   passport.authenticate('local', {
+//     // failureRedirect: '/', 
+//     // successRedirect: '/',
+//   }),
   
-  function(req, res, next) {
-    res.send("DONE!");
-});
+//   function(req, res, next) {
+//     res.send("DONE!");
+// });
 
-router.get('/logout', function(req, res, next) {
-  req.logout();
-  //req.session.destroy();
-  res.redirect('/');
-});
+// router.get('/logout', function(req, res, next) {
+//   req.logout();
+//   //req.session.destroy();
+//   res.redirect('/');
+// });
 
 router.get('/admin', restrict, function(req, res, next) {
 
 });
-
-
 
 module.exports = router;

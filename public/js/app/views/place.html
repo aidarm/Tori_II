@@ -1,10 +1,10 @@
-<form class="placingForm" data-ng-submit="submitForm()">
+<form class="placingForm" name="placingForm" novalidate data-ng-submit="form.$valid && submitForm()">
 
     <h2>Place an ad</h2>
 
     <div class="formCategory">
         <label>Category</label><br/>
-        <select data-ng-model="form.category">
+        <select data-ng-model="form.category" required>
             <option value="" selected>Select the category</option>
             <option value="cars">Cars</option>
             <option value="houses">Houses</option>
@@ -13,7 +13,7 @@
     </div>
 
     <label>Title</label><p> (max. 40 char.)</p><br/>
-    <input type="text" class="formTitle" placeholder="e.g. Volvo S60" data-ng-model="form.title" maxlength="40"/><br/>
+    <input type="text" class="formTitle" name="formTitle" placeholder="e.g. Volvo S60" data-ng-model="form.title" maxlength="40" required/><br/>
 
     <label>Description</label><p> (350-700 char.)</p><br/>
     <textarea class="formDescription" placeholder="Describe the stuff you want to sell" data-ng-model="form.description" maxlength="700"></textarea><br/>
@@ -50,7 +50,10 @@
     </div>
 
     <div class="formButton">
-        <button type="submit" data-ng-click="sendForm()">PLACE</button>
+        <button type="submit">PLACE</button>
+        <div ng-show="placingForm.$submitted">
+            <div data-ng-show="placingForm.formTitle.$error.required">USE DIALOG!</div>
+        </div>
     </div>
 
 </form>

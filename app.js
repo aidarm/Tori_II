@@ -6,10 +6,12 @@ var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
 var passport = require('passport');
 var expressSession = require('express-session');
+var azure = require('azure-storage');
 
 var config = require("./config");
 var routes = require('./routes/index');
 var item = require('./routes/item');
+var api = require('./routes/api');
 
 var passportConfig = require('./auth/passport-config');
 var restrict = require('./auth/restrict');
@@ -42,15 +44,16 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/item', item);
+app.use('/api', api);
 // TODO: Make it mores flexible when you have an admin route OR ??? check routes/index.js
 //app.use(restrict);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 // error handlers
 
