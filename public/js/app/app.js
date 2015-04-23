@@ -35,7 +35,7 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: "js/app/views/admin.html",
             controller: "adminController"
         }
-    ).when('/admin/:category/:id',
+    ).when('/admin/view/:id',
         {
             title: "Tori / Test",
             templateUrl: "js/app/views/un_item.html",
@@ -49,28 +49,36 @@ app.config(function ($routeProvider, $locationProvider) {
 
 /*--------------------------------------------------------------- GLOBAL FUNCTIONS --------------------------------------------------------------*/
 
-app.run(function($rootScope, $location, $http) {
-   $rootScope.$watch(function() { 
-      return $location.path(); 
-    },
-    function(a){
-      console.log('URL has changed to: ' + a);
-      $http.get(a)
-        .success(function(data) {
-            //console.log("this is coming from wherever:");
-    });
-    });
-});
+// app.run(function($rootScope, $location, $http) {
+//   $rootScope.$watch(function() { 
+//       return $location.path(); 
+//     },
+//     function(a){
+//       console.log('URL has changed to: ' + a);
+//       $http.get(a)
+//         .success(function(data) {
+//             //console.log("this is coming from wherever:");
+//     });
+//     });
+// });
 
-app.run(['$location', '$rootScope', function($location, $rootScope) {
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-        $rootScope.title = current.$$route.title;
-    });
-}]);
+// app.run(['$location', '$rootScope', function($location, $rootScope) {
+//     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+//         $rootScope.title = current.$$route.title;
+//     });
+// }]);
 
 app.run(function($rootScope, $location){
     $rootScope.gogogo = function(hash) {
         $location.path(hash);
+    }
+})
+
+app.run(function($rootScope, $http){
+    $rootScope.getIt = function(path) {
+        $http.get(path).success(function(data) {
+            console.log("sdadadsads");
+        })
     }
 })
 

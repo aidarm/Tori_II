@@ -20,8 +20,9 @@ exports.addItem = function(item, next) {
   });
 };
 
-exports.findItem = function(next) {
-  Item.find(function(err, item) {
+exports.findItem = function(appr, next) {
+  // Item.find({approved: appr, category: {$in:['cars', 'houses']}, function(err, item) {
+  Item.find({approved: appr, category: { $in: [ 'cars', 'houses' ] } }, function(err, item) {
     next(err, item);    
   });
 };

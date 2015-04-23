@@ -26,12 +26,16 @@
             <header data-ng-controller="navController">
                 <div class="logo"><a data-ng-href="/">Tori</a></div>
                 <!-- TODO: EDIT! -->
-                {{#if firstName}} Hello, {{firstName}}!{{/if}}
+                <!--{{#if firstName}} Hello, {{firstName}}!{{/if}}-->
                 <nav>
                     <ul>
-			            <li data-ng-click="gogogo('/api/logout')"><a data-icon="&#xe603;">sign out</a></li>
                         <li data-ng-click="gogogo('/item/create')" data-ng-hide="isLogged()"><a data-icon="&#xe605;">place an ad</a></li>
+                        {{#unless firstName}}
 			            <li data-ng-click="goLogin()" data-ng-hide="isLogged()"><a data-icon="&#xe601;">sign in</a></li>
+			            {{/unless}}
+			            {{#if firstName}}
+			            <li data-ng-click="getIt('/api/logout')"><a data-icon="&#xe603;">sign out</a></li>
+			            {{/if}}
                     </ul>
                 </nav>
             </header>
@@ -43,7 +47,9 @@
                     <li data-ng-click="gogogo('/cat/houses')" data-icon="&#xe600;">houses</li>
                 </ul>
                 <ul class="right">
-                    <li data-ng-class="getClass('/admin')" data-ng-click="gogogo('/admin')" data-ng-if="isLogged()" data-icon="&#xe602;">unapproved</li>
+                    {{#if firstName}}
+                    <li data-ng-class="getClass('/admin')" data-ng-click="gogogo('/admin')" data-icon="&#xe602;">unapproved</li>
+                    {{/if}}
                 </ul>
             </div>
 

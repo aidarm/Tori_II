@@ -7,7 +7,7 @@ var restrict = require('../auth/restrict');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.isAuthenticated()) {
-    console.log("You are authenticated on '/'");
+    //console.log("You are authenticated on '/'");
   };
   
   var vm = {
@@ -27,9 +27,41 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get(/.*$/, function(req, res, next) {
+  
+  if (req.isAuthenticated()) {
+    
+  };
+  
+  next();
+  
+  // var vm = {
+  //   firstName: req.user ? req.user.firstName : null
+  // };
+  
+  // res.send('index', vm);
+
+});
+
 router.post('/', function(req, res, next) {
   console.log(req.body);
-  itemService.findItem(function(err, item, next) {
+  itemService.findItem(1, function(err, item, next) {
+    if (err) {
+      console.log(err);
+    }
+    if (item) {
+      res.send(item);
+    }
+  });
+});
+
+router.get('/admin', restrict, function(req, res, next) {
+  res.render('admin', req.user);
+});
+
+router.post('/admin', function(req, res, next) {
+  console.log(req.body);
+  itemService.findItem(0, function(err, item, next) {
     if (err) {
       console.log(err);
     }
@@ -43,34 +75,14 @@ router.get('/cat/cars', function(req, res, next) {
   if (req.isAuthenticated()) {
     console.log("You are authenticated on '/item/cat'");
   };
-  res.render('item/cat');
+  res.render('item/cat', req.user);
 });
 
 router.get('/cat/houses', function(req, res, next) {
   if (req.isAuthenticated()) {
     console.log("You are authenticated on '/item/cars'");
   };
-  res.render('item/cat');
-});
-
-// router.post('/login', 
-//   passport.authenticate('local', {
-//     // failureRedirect: '/', 
-//     // successRedirect: '/',
-//   }),
-  
-//   function(req, res, next) {
-//     res.send("DONE!");
-// });
-
-// router.get('/logout', function(req, res, next) {
-//   req.logout();
-//   //req.session.destroy();
-//   res.redirect('/');
-// });
-
-router.get('/admin', restrict, function(req, res, next) {
-
+  res.render('item/cat', req.user);
 });
 
 module.exports = router;

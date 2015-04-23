@@ -32,10 +32,6 @@ app.controller('mainController', ['$scope', '$http', '$upload', 'ngDialog', func
     
     $scope.pageHeading = "The latest ads";
     
-    $scope.isLogged = function() {
-      return true;  
-    };
-    
     $http.post("/").success(function(data) {
         $scope.data = data;
     });
@@ -164,8 +160,9 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
     
     $http.post(path).success(function(data) {
         $scope.item = data;
-    })
 
+    });
+    
     $scope.hideButtShowPar = false;
 
     $scope.showContacts = function(){
@@ -278,16 +275,22 @@ app.controller('loginController', ['$scope', '$http', '$location', '$window', 'n
 
 // ADMINISTRATION PAGE CONTROLLER
 
-app.controller('adminController', ['$scope', '$location', function ($scope, $location) {
+app.controller('adminController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
       
     // DatabaseRequest.getData(null, null, true).success(function (data) {
     //     $scope.data = data;
     // });
+    
+    $scope.pageHeading = 'Unapproved ads';
+    
+    var path = $location.path();
+    
+    $http.post(path).success(function(data) {
+        $scope.data = data;
+    })
 
     $scope.show = function (ID, category) {
-        $location.path('admin/' + category + '/' + ID);
+        $location.path('admin/view/' + ID);
     };
-
-    $scope.pageHeading = 'Unapproved ads';
 
 }]);

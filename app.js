@@ -6,12 +6,15 @@ var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
 var passport = require('passport');
 var expressSession = require('express-session');
+var connectMongo = require('connect-mongo');
 var azure = require('azure-storage');
 
 var config = require("./config");
 var routes = require('./routes/index');
 var item = require('./routes/item');
 var api = require('./routes/api');
+
+var MongoStore = connectMongo(expressSession);
 
 var passportConfig = require('./auth/passport-config');
 var restrict = require('./auth/restrict');
@@ -35,7 +38,10 @@ app.use(expressSession(
     {
         secret: 'slashman',
         saveUninitialized: false,
-        resave: false
+        resave: false,
+        store: new MongoStore({
+          mongooseConnection: mongoose.connection
+        })
     }
 ));
 

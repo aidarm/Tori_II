@@ -1,9 +1,9 @@
-﻿<div class="right_container">
+<div class="right_container">
     <h1 class="pageHeading">{{ pageHeading | capitalize }}</h1>
     <ul>
-        <li class="block" data-ng-repeat="item in data | orderBy : 'ID' : reverse=true" data-super-hover>
-            <div class="image_height" data-ng-click="show(item.ID, item.category)">
-                <img data-ng-src="{{ item.image }}">
+        <li class="block" data-ng-repeat="item in data | orderBy : 'created' : reverse=true" data-super-hover>
+            <div class="image_height" data-ng-click="show(item._id, item.category)">
+                <img data-ng-src="{{ item.img }}">
             </div>
             <div class="text_section">
                 <h1>{{ item.title }}</h1>
