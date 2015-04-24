@@ -7,8 +7,8 @@
             </div>
             <div class="text_section">
                 <div class="button_section">
-                    <button class="button_test" data-ng-if="isLogged()" data-ng-click="editItem(item.ID, item.category)" data-ng-show="showIt" data-icon="&#xe608;">EDIT</button>
-                    <button class="button_test" data-ng-if="isLogged()" data-ng-click="deleteItem(item.ID, item.category)" data-ng-show="showIt" data-icon="&#xe606;">DELETE</button>
+                    <button class="button_test" data-ng-click="editItem(item._id)" data-ng-show="showIt" data-icon="&#xe608;">EDIT</button>
+                    <button class="button_test" data-ng-click="deleteItem(item._id)" data-ng-show="showIt" data-icon="&#xe606;">DELETE</button>
                 </div>
                 <h1>{{ item.title }}</h1>
                 <h2>{{ item.price | currency: '&euro;' }}</h2>

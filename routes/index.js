@@ -11,7 +11,9 @@ router.get('/', function(req, res, next) {
   };
   
   var vm = {
-    firstName: req.user ? req.user.firstName : null
+    firstName: req.user ? req.user.firstName : null,
+    //layout: "test_layout",
+    //test: "sdfsfdfds"
   };
   
   // itemService.findItem(function(err, item) {
@@ -86,11 +88,11 @@ router.get('/cat/houses', function(req, res, next) {
 });
 
 //THSI SHIT
-router.get('/admin/:itemid', function(req, res, next) {
-  res.render('item/item');
+router.get('/admin/:itemid', restrict, function(req, res, next) {
+  res.render('item/item', req.user);
 });
 
-router.post('/admin/:itemid', function (req, res, next) {
+router.post('/admin/:itemid', restrict, function (req, res, next) {
   console.log(req.params.itemid);
   itemService.findOneItem(req.params.itemid, function(err, item, next) {
     if (err) {

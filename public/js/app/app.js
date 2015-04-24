@@ -41,7 +41,7 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: "js/app/views/un_item.html",
             controller: "infoController"
         }
-    )
+    ).otherwise({redirectTo: '/'});
 
     $locationProvider.html5Mode(true);
 
@@ -87,29 +87,6 @@ app.run(function($rootScope, $location) {
         $location.path('item/view/' + ID);
     };
 });
-
-
-/*--------------------------------------------------------------- FACTORIES --------------------------------------------------------------*/
-
-// GETTING DATA FROM THE JSON DECODED OBJECT
-
-// app.factory('DatabaseRequest', function ($http) {
-
-//     return {
-//         getData : function(id, category, appr) {
-//             return $http({
-//                 url: '//localhost:27017/test/item/',
-//                 method: 'GET',
-//                 params: {
-//                     'id': id,
-//                     'category': category,
-//                     'appr' : appr
-//                 }
-//             })
-//         }
-//     }
-// });
-
 
 /*--------------------------------------------------------------- DIRECTIVES --------------------------------------------------------------*/
 
