@@ -197,14 +197,15 @@ app.controller('listCTRL', ['$scope', '$http', 'Upload', '$location', '$routePar
         });
     }
     
-    var x =  +$routeParams.page + 1;
-    var y =  +$routeParams.page - 1;
+    var n =  +$routeParams.page + 1;
+    var p =  +$routeParams.page - 1;
     
     $scope.nextPage = function() {
-        $location.path("/list/" + $routeParams.list + "/" + x);
+        $location.path("/list/" + $routeParams.list + "/" + n);
     }
+    
     $scope.previousPage = function() {
-        if ($routeParams.page != 1) $location.path("/list/" + $routeParams.list + "/" + y);
+        if ($routeParams.page != 1) $location.path("/list/" + $routeParams.list + "/" + p);
     }
     
     $scope.isHidden = function(){
@@ -385,16 +386,36 @@ app.controller('newCTRL', ['$scope', '$http', '$location', 'Upload', function ($
 
 // SIGN IN POP-UP WINDOW CONTROLLER
 
-app.controller('signinCTRL', ['$scope', '$http', '$location', '$window', 'ngDialog', function($scope, $http, $location, $window, ngDialog){
+app.controller('signinCTRL', ['$scope', '$http', '$location', '$window', 'ngDialog', 'vcRecaptchaService', function($scope, $http, $location, $window, ngDialog, vcRecaptchaService){
     
-    $scope.submitForm = function() {
+    $scope.response = null;
+    $scope.widgetId = null;
+    
+    $scope.model = {
+        key: '6Leo6AUTAAAAAF2YQmj0nlMRmpVuqMH_pTh0-_5P'
+    };
+    
+    $scope.setResponse = function (response) {
+        console.info('Response available');
+        $scope.form.response = response;
+    };
+    
+    $scope.setWidgetId = function (widgetId) {
+        console.info('Created widget ID: %s', widgetId);
+        $scope.widgetId = widgetId;
+    };
+    
+    $scope.errorMessage = null;
+    
+    $scope.submit = function () {
         $http.post('/api/signin', $scope.form).
             success(function(data) {
                 $scope.closeThisDialog();
                 location.reload();
             }).error(function(err) {
-                $scope.errorMessage = err;
+                $scope.errorMessage = "Invalid credentials or/and you are a robot!";
+                vcRecaptchaService.reload($scope.widgetId);
             });
-    }
+    };
 
 }]);

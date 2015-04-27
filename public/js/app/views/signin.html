@@ -1,4 +1,4 @@
-<form class="loginForm" data-ng-submit="submitForm()">
+<form class="loginForm" data-ng-submit="submit()">
 
     <h2>Sign in</h2>
 
@@ -10,7 +10,14 @@
 
     <button type="submit" data-icon="&#xe60a;"></button>
     
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <div class="g-recaptcha" data-sitekey="6Leo6AUTAAAAAF2YQmj0nlMRmpVuqMH_pTh0-_5P"></div>
+    <p>{{ errorMessage }}</p>
+    
+    <div class="recaptcha"
+        vc-recaptcha
+        theme="'light'"
+        key="model.key"
+        on-create="setWidgetId(widgetId)"
+        on-success="setResponse(response)"
+    ></div>
 
 </form>

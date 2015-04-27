@@ -561,7 +561,15 @@ form.placingForm {
 
 form.loginForm {
   text-align: center;
-  padding: 50px 50px 0;
+  padding: 40px 50px 0;
+  position: relative;
+  
+  .recaptcha {
+    margin: 0 auto;
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
+  }
 
   h2 {
     text-shadow : 0px 0px 1px #aaaaaa;
@@ -569,7 +577,7 @@ form.loginForm {
     font-size: 4em;
     letter-spacing: -4px;
     margin-top: 0;
-    margin-bottom: 70px;
+    margin-bottom: 60px;
   }
 
   label {
@@ -594,7 +602,7 @@ form.loginForm {
   }
 
   button {
-    margin: 25px 0 50px;
+    margin: 15px 0 110px;
     background: #C1D90D;
     color: #fff;
     border: 0;

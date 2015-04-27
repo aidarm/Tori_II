@@ -5,7 +5,6 @@ var restrict = require('../auth/restrict');
 var itemService = require("../services/item-service");
 var multiparty = require('connect-multiparty');
 var multipartyMiddleware = multiparty();
-var simple_recaptcha = require('simple-recaptcha');
 
 process.env['AZURE_STORAGE_ACCOUNT'] = 'tori';
 process.env['AZURE_STORAGE_ACCESS_KEY'] = 'LIG32cEO2UKFrX5CVQVN22+l3P52zhqW9TDffd8McvApbjWYS6Scaw6wbO04WsstOk2sYubOzVJ00++ufIiRfQ==';
@@ -15,8 +14,11 @@ var blobService = azure.createBlobService();
 
 /* ----------------------------------- Protected Routes ----------------------------------- */
 
+router.get('/list/user', restrict);
+
 router.get('/approve', restrict);
 router.get('/reject', restrict);
+router.get('/delete', restrict);
 
 /* ---------------------------------- Database Management --------------------------------- */
 
@@ -106,12 +108,12 @@ router.post('/data', multipartyMiddleware, function(req, res, next) {
 router.post('/image', multipartyMiddleware, function(req, res, next) {
   blobService.createBlockBlobFromLocalFile('images', req.body.rando, req.files.file.path, req.files.file.size, function(err) {
     if (!err) {
-      console.log("YEAH!");
+      console.log("Image was uploaded");
     }
   });
 });
 
-router.post('/update', function(req, res, next) {
+router.post('/update', restrict, function(req, res, next) {
   console.log(req.body);
   itemService.updateItem(req.body, function(err) {
     if (err) {
@@ -142,7 +144,7 @@ router.post('/delete', restrict, function(req, res, next) {
 /* ----------------------------------- Session Management ---------------------------------- */
 
 router.post('/signin', passport.authenticate('local', {}), function(req, res, next) {
-    res.send(true);
+  res.send();
 });
 
 router.get('/signout', function(req, res, next) {

@@ -3,9 +3,19 @@ module.exports = function() {
   var passportLocal = require('passport-local');
   var userService = require('../services/user-service');
   var bcrypt = require('bcrypt');
+  var Recaptcha = require('recaptcha-verify');
   
-  passport.use(new passportLocal.Strategy({usernameField: 'email'}, function(email, password, next) {
+  var recaptcha = new Recaptcha({
+      secret: '6Leo6AUTAAAAAKJ6Tc7R3G9aRxkZPN4ouNog85KJ'
+  });
+  
+  passport.use(new passportLocal.Strategy({usernameField: 'email', passReqToCallback: true}, function(req, email, password, next) {
     
+    var response = req.body.response;
+    recaptcha.checkResponse(response, function(err, response){
+      if(err || !response.success) return next(err);
+    });
+
     userService.findUser(email, function(err, user) {
       if (err) {
         return next(err);

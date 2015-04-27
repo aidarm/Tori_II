@@ -1,4 +1,4 @@
-var app = angular.module('tori', ['ngRoute', 'ngDialog', 'ngFileUpload', 'angular-flexslider']);
+var app = angular.module('tori', ['ngRoute', 'ngDialog', 'ngFileUpload', 'angular-flexslider', 'vcRecaptcha']);
 
 app.run(function($rootScope, $location) {
     $rootScope.location = $location;

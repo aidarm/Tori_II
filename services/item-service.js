@@ -1,6 +1,5 @@
 var Item = require('../models/item').Item;
 
-
 exports.newItem = function(item, next) {
   var newItem = new Item({
     title: item.title,

@@ -1,0 +1,38 @@
+{
+  "name": "angular-recaptcha",
+  "version": "2.2.2",
+  "keywords": [
+    "angular",
+    "captcha",
+    "recaptcha",
+    "vividcortex",
+    "human",
+    "form",
+    "validation",
+    "signup",
+    "security",
+    "login"
+  ],
+  "main": "release/angular-recaptcha.js",
+  "ignore": [
+    "**/.*",
+    "Gruntfile.js",
+    "src",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "1.*"
+  },
+  "homepage": "https://github.com/VividCortex/angular-recaptcha",
+  "_release": "2.2.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.2.2",
+    "commit": "731a55ffb1f58bef61f9b8da30a1e6e4564ab014"
+  },
+  "_source": "git://github.com/VividCortex/angular-recaptcha.git",
+  "_target": "~2.2.2",
+  "_originalSource": "angular-recaptcha",
+  "_direct": true
+}
