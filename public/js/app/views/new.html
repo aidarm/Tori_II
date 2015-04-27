@@ -1,4 +1,4 @@
-<form class="placingForm" name="placingForm" novalidate data-ng-submit="submitForm()">
+<form class="placingForm" name="placingForm" novalidate data-ng-submit="submit()">
 
     <h2>Place an ad</h2>
 
@@ -24,7 +24,7 @@
     </div>
 
     <label>Image</label><p> (1 image min. width 700px)</p><br/>
-    <input type="file" class="formImage"><br/>
+    <div class="button" ngf-select ng-model="files" ngf-multiple="true">SELECT FILE</div>
     {{ message }}
     <div class="contact_information">
 
@@ -50,7 +50,7 @@
     </div>
 
     <div class="formButton">
-        <button type="submit">PLACE</button>
+        <button type="submit" data-icon="&#xe60a;"></button>
         <div ng-show="placingForm.$submitted">
             <div data-ng-show="placingForm.formTitle.$error.required">USE DIALOG!</div>
         </div>

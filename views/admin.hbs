@@ -1,1 +1,15 @@
+<p>ADMIN HUY!</p>
 <section data-ng-view=""></section>
+
+<script src="/bower/angular/angular.min.js"></script>
+<script src="/bower/angular-route/angular-route.min.js"></script>
+<script src="/js/app/angular-file-upload.min.js"></script>
+<script src="/js/app/app.js"></script>
+<script src="/js/app/controllers.js"></script>
+<script src="/js/app/ngDialog.min.js"></script>
+
+<script>
+    var data = {{{ json item }}};
+    alert(data);
+    app.constant('data', data);
+</script>

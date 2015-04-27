@@ -2,10 +2,12 @@
 
 <html lang="en" data-ng-app="tori">
 
-    <head>
+    <head data-ng-controller="headCTRL">
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title data-ng-bind="title"></title>
+        <title>Tori</title>
+        <script src="//use.typekit.net/pat2oal.js"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="stylesheet" href="/css/normalize.css"/>
         <link rel="stylesheet" href="/css/ngDialog.min.css"/>
@@ -16,6 +18,7 @@
         <link rel="stylesheet" href="/css/style.css"/>
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Londrina+Solid' rel='stylesheet' type='text/css'>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
         <base href="/">
     </head>
 
@@ -24,17 +27,15 @@
         <div class="wrapper">
 
             <header data-ng-controller="navController">
-                <div class="logo"><a data-ng-href="/">Tori</a></div>
-                <!-- TODO: EDIT! -->
-                <!--{{#if firstName}} Hello, {{firstName}}!{{/if}}-->
+                <div class="logo"><a data-ng-href="/list/all/1">Tori</a></div>
                 <nav>
                     <ul>
-                        <li data-ng-click="gogogo('/item/create')" data-ng-hide="isLogged()"><a data-icon="&#xe605;">place an ad</a></li>
-                        {{#unless firstName}}
-			            <li data-ng-click="goLogin()" data-ng-hide="isLogged()"><a data-icon="&#xe601;">sign in</a></li>
+                        <li data-ng-click="go('/item/new')"><a data-icon="&#xe605;">place an ad</a></li>
+                        {{#unless user}}
+			            <li data-ng-click="signin()"><a data-icon="&#xe601;">sign in</a></li>
 			            {{/unless}}
-			            {{#if firstName}}
-			            <li data-ng-click="getIt('/api/logout')"><a data-icon="&#xe603;">sign out</a></li>
+			            {{#if user}}
+			            <li data-ng-click="get('/api/signout')"><a data-icon="&#xe603;">sign out</a></li>
 			            {{/if}}
                     </ul>
                 </nav>
@@ -42,27 +43,28 @@
 	
 	        <div class="top_container" data-ng-controller="filterController" data-ng-show="checkRoute()">
                 <ul>
-                    <li data-ng-click="gogogo('/')">all</li>
-                    <li data-ng-click="gogogo('/cat/cars')" data-icon="&#xe604;">cars</li>
-                    <li data-ng-click="gogogo('/cat/houses')" data-icon="&#xe600;">houses</li>
+                    <li data-ng-click="go('/list/all/1')">all</li>
+                    <li data-ng-click="go('/list/cars/1')" data-icon="&#xe604;">cars</li>
+                    <li data-ng-click="go('/list/houses/1')" data-icon="&#xe600;">houses</li>
                 </ul>
                 <ul class="right">
-                    {{#if firstName}}
-                    <li data-ng-class="getClass('/admin')" data-ng-click="gogogo('/admin')" data-icon="&#xe602;">unapproved</li>
+                    {{#if user}}
+                    <li data-ng-class="getClass('/admin')" data-ng-click="go('list/user/1')" data-icon="&#xe602;">unapproved</li>
                     {{/if}}
                 </ul>
             </div>
 
-            {{{ body }}}
+            <section data-ng-view=""></section>
 
+            <script src="/bower/angular/angular.min.js"></script>
+            <script src="/bower/angular-route/angular-route.min.js"></script>
+            <script src="/js/app/ng-file-upload-all.min.js"></script>
+            <script src="/js/app/app.js"></script>
+            <script src="/js/app/controllers.js"></script>
+            <script src="/js/app/ngDialog.min.js"></script>
+           
         </div>
 
-        <script src="/bower/angular/angular.min.js"></script>
-        <script src="/bower/angular-route/angular-route.min.js"></script>
-        <script src="/js/app/angular-file-upload.min.js"></script>
-        <script src="/js/app/app.js"></script>
-        <script src="/js/app/controllers.js"></script>
-        <script src="/js/app/ngDialog.min.js"></script>
     </body>
 
 </html>

@@ -8,8 +8,9 @@
     <label>Password</label><br/>
     <input type="password" data-ng-model="form.password" name="password"/><br/>
 
-    <button type="submit">GO!</button>
-
-    <div class="login_error" data-ng-show="message"><div class="data_icon" data-icon="&#xe607;"></div>{{ message }}</div>
+    <button type="submit" data-icon="&#xe60a;"></button>
+    
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <div class="g-recaptcha" data-sitekey="6Leo6AUTAAAAAF2YQmj0nlMRmpVuqMH_pTh0-_5P"></div>
 
 </form>

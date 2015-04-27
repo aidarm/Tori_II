@@ -1,108 +1,72 @@
 var express = require('express');
 var router = express.Router();
-//var passport = require('passport');
-var itemService = require('../services/item-service');
 var restrict = require('../auth/restrict');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  if (req.isAuthenticated()) {
-    //console.log("You are authenticated on '/'");
-  };
+// PROTECTED ROUTES
+
+router.get('/list/user', restrict);
+
+// router.post('/admin', function(req, res, next) {
+//   console.log(req.body);
+//   itemService.findItem(0, null, function(err, item, next) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     if (item) {
+//       res.send(item);
+//     }
+//   });
+// });
+
+// router.get('/cat/:cat', function(req, res, next) {
+
+//   var query = req.params.cat;
+//   var data = {};
   
-  var vm = {
-    firstName: req.user ? req.user.firstName : null,
-    //layout: "test_layout",
-    //test: "sdfsfdfds"
-  };
+//   itemService.findItem(1, query, function(err, item, next) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     if (item) {
+//       data.item = item;
+//       res.render('admin', data);
+//     }
+//   });
   
-  // itemService.findItem(function(err, item) {
-  //   if (err) {
-  //     console.log(err);
-  //   }
-  //   if (item) {
-  //     res.render('index', {products: item});
-  //   }
-  // });
   
-  res.render('index', vm);
+// });
 
-});
+// router.get('/admin', function(req, res, next) {
 
-router.get(/.*$/, function(req, res, next) {
+//   var data = {};
   
-  if (req.isAuthenticated()) {
-    
-  };
-  
-  next();
-  
-  // var vm = {
-  //   firstName: req.user ? req.user.firstName : null
-  // };
-  
-  // res.send('index', vm);
-
-});
-
-router.post('/', function(req, res, next) {
-  console.log(req.body);
-  itemService.findItem(1, function(err, item, next) {
-    if (err) {
-      console.log(err);
-    }
-    if (item) {
-      res.send(item);
-    }
-  });
-});
-
-router.get('/admin', restrict, function(req, res, next) {
-  res.render('admin', req.user);
-});
-
-router.post('/admin', function(req, res, next) {
-  console.log(req.body);
-  itemService.findItem(0, function(err, item, next) {
-    if (err) {
-      console.log(err);
-    }
-    if (item) {
-      res.send(item);
-    }
-  });
-});
-
-router.get('/cat/cars', function(req, res, next) {
-  if (req.isAuthenticated()) {
-    console.log("You are authenticated on '/item/cat'");
-  };
-  res.render('item/cat', req.user);
-});
-
-router.get('/cat/houses', function(req, res, next) {
-  if (req.isAuthenticated()) {
-    console.log("You are authenticated on '/item/cars'");
-  };
-  res.render('item/cat', req.user);
-});
+//   itemService.findItem(0, null, function(err, item, next) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     if (item) {
+//       data.item = item;
+//       res.render('index', data);
+//     }
+//   });
+// });
 
 //THSI SHIT
-router.get('/admin/:itemid', restrict, function(req, res, next) {
-  res.render('item/item', req.user);
-});
+// router.get('/admin/:itemid', restrict, function(req, res, next) {
+//   res.render('item/item', req.user);
+// });
 
-router.post('/admin/:itemid', restrict, function (req, res, next) {
-  console.log(req.params.itemid);
-  itemService.findOneItem(req.params.itemid, function(err, item, next) {
-    if (err) {
-      console.log(err);
-    }
-    if (item) {
-      console.log(item);
-      res.send(item);
-    }
-  });
-});
+// router.post('/admin/:itemid', restrict, function (req, res, next) {
+//   console.log(req.params.itemid);
+//   itemService.findOneItem(req.params.itemid, function(err, item, next) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     if (item) {
+//       console.log(item);
+//       res.send(item);
+//     }
+//   });
+// });
 
 module.exports = router;

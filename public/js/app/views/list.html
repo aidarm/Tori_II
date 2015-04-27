@@ -1,0 +1,29 @@
+<div class="right_container">
+    <h1 class="pageHeading">{{ pageHeading | capitalize }}</h1>
+    <p class="showCount">{{ partCount() }}</p>
+    <ul>
+        <li class="block" data-ng-repeat="item in data | orderBy : 'created' : reverse=true" data-ng-mouseenter="showIt = true" data-ng-mouseleave="showIt = false" data-super-hover>
+            <div class="image_height" data-ng-click="view(item._id, item.category)">
+                <img data-ng-src="{{ item.img }}">
+            </div>
+            <div class="text_section">
+                <div data-ng-if="user()" class="button_section">
+                    <button class="button_test" data-ng-click="edit(item._id)" data-ng-show="showIt" data-icon="&#xe608;">EDIT</button>
+                    <button class="button_test" data-ng-click="delete(item._id)" data-ng-show="showIt" data-icon="&#xe606;">DELETE</button>
+                </div>
+                <h1>{{ item.title }}</h1>
+                <h2>{{ item.price | currency: '&euro;' }}</h2>
+                <p>
+                   {{ item.city }},
+                   {{ item.created | date:'MMMM d' }}
+                </p>
+            </div>
+        </li>
+    </ul>
+    <div id="pagination" data-ng-if="!boxShow()">
+        <button data-ng-class="{invisibleArrow: isHidden()}" data-ng-disabled="isHidden()" data-ng-click="previousPage()" data-icon="&#xe60c";></button>
+        <input type="text" maxlength="3" data-ng-model="pageNumber" data-ng-enter="goToPage(pageNumber)">
+        <button data-ng-class="{invisibleArrow: !arrowHShow()}" data-ng-click="nextPage()" data-icon="&#xe60d;"></button> <br/>
+        <p>/{{pageLimit}}</p>
+    </div>
+</div>

@@ -1,8 +1,11 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 
+$font: "proxima-nova", sans-serif;
+$font_logo: "londrina solid";
+
 * {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: $font;
   text-decoration: none;
   list-style: none;
   color: #3b3b3b;
@@ -44,7 +47,9 @@ header {
     height: 100%;
 
     a {
-      font-family: 'Londrina Solid', cursive;
+      font-family: $font_logo;
+      font-weight: 400;
+      letter-spacing: -2px;
       color: #00abec;
       font-size: 5em;
       display: table-cell;
@@ -164,11 +169,24 @@ header {
 
   .pageHeading {
     font-weight: 700;
-    letter-spacing: -5px;
-    font-size: 5em;
+    letter-spacing: -4px;
+    font-size: 4em;
     text-shadow: 0px 0px 1px #ddd;
-    margin: 10px 0;
+    margin: 10px 0 0;
     padding:0;
+    display: inline-block;
+  }
+  
+  .showCount {
+    margin: 49px 0 0;
+    padding:0;
+    font-size: 2em;
+    font-weight: 100;
+    color: #ccc;
+    letter-spacing: -2px;
+    display: inline-block;
+    float: right;
+    //text-shadow : 0px 0px 1px #ccc;
   }
 
   ul {
@@ -186,30 +204,30 @@ header {
     overflow: hidden;
 
     h1 {
-      font-family: 'Source Sans Pro', sans-serif;
-      font-weight: 700;
+      font-weight: 600;
       text-align: center;
       font-size: 0.8em;
       color: #3b3b3b;
     }
 
     h2 {
-      font-weight: 300;
+      font-weight: 400;
       color: #3b3b3b;
       text-align: center;
-      font-size: 1em;
-      width: 70%;
-      margin-left: 24px;
+      font-size: 0.8em;
+      width: 50%;
+      padding: 5px;
+      margin-left: 43px;
       position: absolute;
-      bottom: 18px;
+      bottom: 15px;
       border: 1px solid #3b3b3b;
     }
 
     p {
       margin: 0;
       text-align: center;
-      font-size: 0.8em;
-      font-weight: 400;
+      font-size: 0.7em;
+      font-weight: 300;
       color: #aaa;
       padding: 0;
       display: inline-block;
@@ -219,6 +237,46 @@ header {
       bottom: 0;
     }
 
+  }
+  
+  // P A G I N A T I O N
+
+  #pagination {
+    margin: 40px auto;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    
+    .invisibleArrow {
+      visibility: hidden;
+    }
+    
+    input {
+      width: 70px;
+      padding: 10px;
+      text-align: center;
+      border: 5px solid #ddd;
+      font-weight: 600;
+      color: #3b3b3b;
+      margin: 0;
+    }
+    
+    button {
+      background: none;
+      border: none;
+      font-size: 1em;
+      padding: 0;
+    }
+    
+    p {
+      padding: 0;
+      background: #ddd;
+      display: inline-block;
+      width: 40px;
+      margin: 0 auto;
+      color: #fff;
+      font-weight: 600;
+    }
   }
 }
 
@@ -257,12 +315,13 @@ div.text_section{
 // INFO CSS --------------------------------------------------------------------------------------
 
 div.info {
-  @include span-columns(8);
-  @include shift(2);
+  @include row();
+  @include span-columns(12);
+  padding: 0 20px;
   margin-top: 40px;
 
   h2 {
-    text-align: center;
+    
     font-size: 3.5em;
     font-weight: 700;
     margin: 0;
@@ -271,16 +330,16 @@ div.info {
   }
 
   p.subheading {
-    font-size: 1.75em;
-    font-weight: 300;
+    font-size: 2em;
+    font-weight: 100;
     color: #ccc;
-    text-align: center;
     margin: 0 0 30px;
     letter-spacing: -2px;
+    font-style: italic;
   }
 
   div.desc_container {
-    width: 63%;
+  clear: right;
 
     p {
       font-weight: 300;
@@ -289,6 +348,10 @@ div.info {
   }
 
   div.img_container {
+    width: 60%;
+    float: left;
+    margin-right: 30px;
+    
     img {
       box-shadow: 0px 0px 0px 5px #f1f1f1;
       display: block;
@@ -299,7 +362,7 @@ div.info {
 
   div.price_container {
     float: right;
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: 700;
     border: 5px solid #3b3b3b;
     color: #3b3b3b;
@@ -315,42 +378,28 @@ div.info {
   }
 
   div.contacts_container {
-    margin-top: 40px;
-    border-top: 1px solid #ccc;
-    text-align: center;
-
-    p.q {
-      font-size: 2em;
-      font-weight: 700;
-      letter-spacing: -2px;
-      margin-bottom: 5px;
-      text-shadow : 0px 0px 1px #aaaaaa;
-    }
-
-    button {
-      margin: 13px 0 0;
-      background: #C1D90D;
-      color: #fff;
-      border: 0;
-      font-weight: 300;
-      padding: 10px 35px;
-      border-radius: 5px;
-    }
+    clear: right;
+    //margin-top: 40px;
+    border-top: 3px solid #C1D90D;
 
     div {
-      border-top: 7px solid #C1D90D;
-      width: 50%;
-      padding: 20px;
-      margin: 20px auto 0;
-      //background-color: #89c402;
+      padding-top: 10px;
+      text-align: right;
     }
 
-    div p {
-      font-weight: 300;
+    div p:nth-child(1){
+      font-weight: 700;
       font-size: 1.25em;
+      font-style: italic;
       margin: 0;
       letter-spacing: -1px;
-      //color: #fff;
+    }
+    
+     div p:nth-child(2){
+      font-weight: 300;
+      font-size: 1em;
+      margin: 0;
+      letter-spacing: -1px;
     }
   }
 }
@@ -363,11 +412,25 @@ form.placingForm {
   border: 1px solid #ccc;
   padding: 25px 50px 50px;
   margin-top: 40px;
+  letter-spacing: -1px;
+  
+  .button {
+    -moz-appearance: button;
+    /* Firefox */
+    -webkit-appearance: button;
+    /* Safari and Chrome */
+    padding: 1px 10px;
+    width: 150px;
+    text-align: center;
+    background: #fff;
+    border: 1px dashed #3b3b3b;
+    cursor: pointer;
+}
 
   h2 {
     text-shadow : 0px 0px 1px #aaaaaa;
     font-weight: 700;
-    font-size: 5em;
+    font-size: 4em;
     letter-spacing: -5px;
     margin-top: 0;
     margin-bottom: 20px;
@@ -551,6 +614,9 @@ form.loginForm {
   position: absolute;
   text-align: center;
   width: 100%;
+  font-weight: 300;
+  font-size: 0.8em;
+  letter-spacing: -1px;
   z-index: 1;
 
   .button_test {

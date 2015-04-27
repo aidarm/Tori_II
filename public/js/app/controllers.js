@@ -1,15 +1,27 @@
 /*---------------------------------------------------------------HEADER CONTROLLERS --------------------------------------------------------------*/
 
-app.controller('navController', ['$scope', '$rootScope', 'ngDialog', function($scope, $rootScope, ngDialog){
+app.controller('headCTRL', ['$scope', '$rootScope', '$location', 'ngDialog', function($scope, $rootScope, $location, ngDialog){
+    
+    //$scope.title = "To edit";
 
-    $scope.goLogin = function(){
+}]);
+
+app.controller('navController', ['$scope', '$rootScope', '$http', 'ngDialog', function($scope, $rootScope, $http, ngDialog){
+
+    $scope.signin = function(){
         ngDialog.open({
-            template: 'js/app/views/login.html',
-            controller: 'loginController',
+            template: 'js/app/views/signin.html',
+            controller: 'signinCTRL',
             className: 'ngdialog-theme-plain',
             scope: $rootScope
         });
     };
+    
+    $scope.get = function(path) {
+        $http.get(path).success(function(){
+            location.reload();
+        });
+    }
 
 }]);
 
@@ -20,23 +32,78 @@ app.controller('navController', ['$scope', '$rootScope', 'ngDialog', function($s
 app.controller('filterController', ['$scope', '$location', function($scope, $location){
 
     $scope.checkRoute = function () {
-        if ($location.path() == '/item/create') { return 0 } else { return 1 };
+        if ($location.path() == '/item/new') { return 0 } else { return 1 };
     };
 
 }]);
 
 
-// MAIN PAGE CONTROLLER
+// LIST PAGE CONTROLLER
 
-app.controller('mainController', ['$scope', '$http', '$upload', 'ngDialog', function ($scope, $http, $upload, ngDialog) {
+app.controller('listCTRL', ['$scope', '$http', 'Upload', '$location', '$routeParams', 'ngDialog', function ($scope, $http, Upload, $location, $routeParams, ngDialog) {
     
-    $scope.pageHeading = "The latest ads";
+    var query = {
+        params: {
+            single: false,
+            appr: 1,
+            list: $routeParams.list,
+            page: $routeParams.page - 1
+    }}
     
-    $http.post("/").success(function(data) {
-        $scope.data = data;
+    if (query.params.list == "all") {
+        query.params.list = null;
+        $scope.pageHeading = "The latest ones";
+    } else if (query.params.list == "user") {
+        query.params.appr = 0;
+        query.params.list = null;
+        $scope.pageHeading = "Items for approve"
+    } else {
+        $scope.pageHeading = $routeParams.list + " for sale";
+    }
+    
+    $http.get("api/data", query).success(function(data) {
+        $scope.user = function() {
+            if (data.user) {
+                return true;
+            }
+        }
+        $scope.data = data.data;
+        $scope.totalCount = data.count;
+        
+        $scope.pageLimit = Math.ceil($scope.totalCount / 25);
+        
+        $scope.partCount = function() {
+            var x = ($routeParams.page - 1)*25 + 1;
+            if ($scope.totalCount < $routeParams.page*25) {
+                y = $scope.totalCount;
+            } else {
+                y = $routeParams.page*25;
+            }
+            return "# " + x + " - " + y + " out of " + $scope.totalCount;
+        }
+        
+    }).error(function() {
+        if ($location.path() != "/list/user/" + $routeParams.page) $location.path("/list/all");
+        $scope.totalCount = 0;
     });
+    
+    $scope.arrowHShow = function() {
+        if ($routeParams.page*25 < $scope.totalCount) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    $scope.boxShow = function() {
+        if ($routeParams.page == 1 && $scope.totalCount <= 25) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-    $scope.deleteItem = function (id){
+    $scope.delete = function (id){
         ngDialog.open({
             template: 'js/app/views/confirm.html',
             className: 'ngdialog-theme-plain',
@@ -51,13 +118,14 @@ app.controller('mainController', ['$scope', '$http', '$upload', 'ngDialog', func
                 $scope.dosmth = function (x) {
                     if (x == 'yes') {
                         $http({
-                            url: 'api/reject',
+                            url: 'api/delete',
                             method: 'POST',
                             data: {
                                 'id': id
                             }
                         }).success(function () {
-                            $scope.closeThisDialog();           
+                            $scope.closeThisDialog();
+                            $location.path("/");
                         })
                     } else {
                         $scope.closeThisDialog();
@@ -68,27 +136,31 @@ app.controller('mainController', ['$scope', '$http', '$upload', 'ngDialog', func
 
     };
 
-    $scope.editItem = function (id) {
+    $scope.edit = function (id) {
         ngDialog.open({
             template: 'js/app/views/edit.html',
             className: 'ngdialog-theme-default',
             scope: $scope,
             controller: ['$scope', '$location', function ($scope, $location) {
                 $http({
-                    url: "item/view/" + id,
-                    method: "POST"
+                    url: "api/data/",
+                    method: "GET",
+                    params: {
+                        single: true,
+                        id: id
+                    }
                 }).success(function (data) {
-                    $scope.item = data;
+                    $scope.item = data.data;
                     $scope.form = {
-                        'title': data.title,
-                        'category': data.category,
-                        'description': data.description,
-                        'price': data.price,
-                        'name': data.name,
-                        'city': data.city,
-                        'phone': data.phone,
-                        'img': data.img,
-                        '_id': data._id
+                        'title': data.data.title,
+                        'category': data.data.category,
+                        'description': data.data.description,
+                        'price': data.data.price,
+                        'name': data.data.name,
+                        'city': data.data.city,
+                        'phone': data.data.phone,
+                        'img': data.data.img,
+                        '_id': data.data._id
                     }
                 });
 
@@ -107,7 +179,7 @@ app.controller('mainController', ['$scope', '$http', '$upload', 'ngDialog', func
                 //     })
                 // };
 
-                $scope.sendForm = function () {
+                $scope.send = function () {
                     $http({
                         url: 'api/update',
                         method: 'POST',
@@ -118,34 +190,61 @@ app.controller('mainController', ['$scope', '$http', '$upload', 'ngDialog', func
                     })
                 }
 
-                $scope.cancelForm = function () {
+                $scope.cancel = function () {
                     $scope.closeThisDialog();
                 }
             }]
         });
     }
-
-}]);
-
-// CATEGORY PAGE CONTROLLER
-
-app.controller('categoryController', ['$scope', '$routeParams', function ($scope, $routeParams) {
-
-    // DatabaseRequest.getData(null, $routeParams.category, null).success(function(data) {
-    //     $scope.data = data;
-    // });
-
-    $scope.pageHeading = $routeParams.cat;
-   
-}]);
-
-// INFO PAGE CONTROLLER
-
-app.controller('infoController', ['$scope', '$http', '$routeParams', '$location', 'ngDialog', function ($scope, $http, $routeParams, $location, ngDialog) {
     
-    $http.post($location.path()).success(function(data) {
-        $scope.item = data;
-    });
+    var x =  +$routeParams.page + 1;
+    var y =  +$routeParams.page - 1;
+    
+    $scope.nextPage = function() {
+        $location.path("/list/" + $routeParams.list + "/" + x);
+    }
+    $scope.previousPage = function() {
+        if ($routeParams.page != 1) $location.path("/list/" + $routeParams.list + "/" + y);
+    }
+    
+    $scope.isHidden = function(){
+        if ($routeParams.page == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    $scope.pageNumber = $routeParams.page;
+    
+    $scope.goToPage = function(x) {
+        if (x != 0 && x <= $scope.pageLimit) $location.path("/list/" + $routeParams.list + "/" + x);
+
+    }
+
+}]);
+
+// ITEM PAGE CONTROLLER
+
+app.controller('itemCTRL', ['$scope', '$http', '$routeParams', '$location', 'ngDialog', function ($scope, $http, $routeParams, $location, ngDialog) {
+    
+    var query = {
+        params: {
+            single: true,
+            id: $routeParams.id
+    }}
+    
+    $http.get("api/data", query)
+        .success(function(data) {
+            $scope.user = function() {
+            if (data.user && data.data.approved == 0) {
+                return true;
+            }
+        }
+            $scope.item = data.data;
+        }).error(function() {
+            $location.path("/list/all");
+        });
 
     $scope.approve = function (id) {
         ngDialog.open({
@@ -164,7 +263,7 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
                             }
                         }).success(function () {
                             $scope.closeThisDialog();
-                            $location.path('/admin');
+                            $location.path('/user');
                         })
                     } else {
                         $scope.closeThisDialog();
@@ -174,7 +273,7 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
         });
     }
 
-    $scope.reject = function (id) {
+    $scope.delete = function (id) {
         ngDialog.open({
             template: 'js/app/views/confirm.html',
             className: 'ngdialog-theme-plain',
@@ -184,14 +283,14 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
                 $scope.dosmth = function (x) {
                     if (x == 'yes') {
                         $http({
-                            url: 'api/reject',
+                            url: 'api/delete',
                             method: 'POST',
                             data: {
                                 'id': id
                             }
                         }).success(function () {
                             $scope.closeThisDialog();
-                            $location.path('/admin');
+                            $location.path('/user');
                         })
                     } else {
                         $scope.closeThisDialog();
@@ -205,62 +304,69 @@ app.controller('infoController', ['$scope', '$http', '$routeParams', '$location'
 
 // AD PLACING PAGE CONTROLLER
 
-app.controller('placeController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+app.controller('newCTRL', ['$scope', '$http', '$location', 'Upload', function ($scope, $http, $location, Upload) {
     
-    $scope.form = {};
-    // TODO: Implement error mesage
+    // $scope.onFileSelect = function($files) {
+    //     alert("Image is selected!");
+    //     var file = $files[0];
+    //     //alert(file.type);
+    //     if (file.type.indexOf('image') == -1) { $scope.error = 'Please choose a JPEG or PNG file.' }
+    //     if (file.size > 2097152) { $scope.error = 'File size cannot exceed 2 MB.'; }
+    //     $scope.upload = function() {
+    //         $upload.upload({
+    //             url: 'api/data',
+    //             headers: { 'Content-Type': file.type },
+    //             method: 'POST',
+    //             data: $scope.form,
+    //             file: file
+    //         }).success(function(data) {
+    //             $location.path('/');
+    //         });
+    //     }
+    // };
     
-    $scope.submitForm = function() {
-        $http.post('/api/upload', $scope.form).
-            success(function(data) {
-                console.log("The ad was placed");
-                $location.path('/');
-            }).error(function(err) {
-                $scope.errorMessage = err;
-            });
+    // $scope.submit = function() {
+    //     return $scope.upload();
+    // }
+    
+    //     $scope.$watch('files', function () {
+    //     $scope.upload($scope.files);
+    // });
+    // $scope.log = '';
+    
+    $scope.submit = function() {
+        return $scope.upload($scope.files);
     }
+
+    $scope.upload = function (files) {
+        if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                Upload.upload({
+                    url: 'api/data',
+                    fields:  $scope.form,
+                    file: file
+                }).success(function () {
+                    $location.path('/');
+                });
+            }
+        }
+    };
 
 }]);
 
-// LOGIN POP-UP WINDOW CONTROLLER
+// SIGN IN POP-UP WINDOW CONTROLLER
 
-app.controller('loginController', ['$scope', '$http', '$location', '$window', 'ngDialog', function($scope, $http, $location, $window, ngDialog){
-    
-    // TODO: Implement error mesage
+app.controller('signinCTRL', ['$scope', '$http', '$location', '$window', 'ngDialog', function($scope, $http, $location, $window, ngDialog){
     
     $scope.submitForm = function() {
-        $http.post('/api/login', $scope.form).
+        $http.post('/api/signin', $scope.form).
             success(function(data) {
                 $scope.closeThisDialog();
-                $location.path("/");
-                console.log("Signed in successfully");
+                location.reload();
             }).error(function(err) {
-                console.log("Invalid credentials");
                 $scope.errorMessage = err;
             });
     }
-
-}]);
-
-
-// ADMINISTRATION PAGE CONTROLLER
-
-app.controller('adminController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
-      
-    // DatabaseRequest.getData(null, null, true).success(function (data) {
-    //     $scope.data = data;
-    // });
-    
-    $scope.pageHeading = 'Unapproved ads';
-    
-    var path = $location.path();
-    
-    $http.post(path).success(function(data) {
-        $scope.data = data;
-    })
-
-    $scope.show = function (ID, category) {
-        $location.path('admin/' + ID);
-    };
 
 }]);

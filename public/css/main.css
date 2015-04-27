@@ -4,7 +4,7 @@
   box-sizing: border-box; }
 
 * {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "proxima-nova", sans-serif;
   text-decoration: none;
   list-style: none;
   color: #3b3b3b; }
@@ -55,7 +55,9 @@ header {
     header .logo:last-child {
       margin-right: 0; }
     header .logo a {
-      font-family: 'Londrina Solid', cursive;
+      font-family: "londrina solid";
+      font-weight: 400;
+      letter-spacing: -2px;
       color: #00abec;
       font-size: 5em;
       display: table-cell;
@@ -162,11 +164,21 @@ header {
     margin-right: 0; }
   .right_container .pageHeading {
     font-weight: 700;
-    letter-spacing: -5px;
-    font-size: 5em;
+    letter-spacing: -4px;
+    font-size: 4em;
     text-shadow: 0px 0px 1px #ddd;
-    margin: 10px 0;
-    padding: 0; }
+    margin: 10px 0 0;
+    padding: 0;
+    display: inline-block; }
+  .right_container .showCount {
+    margin: 49px 0 0;
+    padding: 0;
+    font-size: 2em;
+    font-weight: 100;
+    color: #ccc;
+    letter-spacing: -2px;
+    display: inline-block;
+    float: right; }
   .right_container ul {
     padding: 0;
     margin: 0; }
@@ -186,26 +198,26 @@ header {
     .right_container li.block:nth-child(5n+1) {
       clear: left; }
     .right_container li.block h1 {
-      font-family: 'Source Sans Pro', sans-serif;
-      font-weight: 700;
+      font-weight: 600;
       text-align: center;
       font-size: 0.8em;
       color: #3b3b3b; }
     .right_container li.block h2 {
-      font-weight: 300;
+      font-weight: 400;
       color: #3b3b3b;
       text-align: center;
-      font-size: 1em;
-      width: 70%;
-      margin-left: 24px;
+      font-size: 0.8em;
+      width: 50%;
+      padding: 5px;
+      margin-left: 43px;
       position: absolute;
-      bottom: 18px;
+      bottom: 15px;
       border: 1px solid #3b3b3b; }
     .right_container li.block p {
       margin: 0;
       text-align: center;
-      font-size: 0.8em;
-      font-weight: 400;
+      font-size: 0.7em;
+      font-weight: 300;
       color: #aaa;
       padding: 0;
       display: inline-block;
@@ -213,6 +225,34 @@ header {
       border-top: 1px solid #ccc;
       position: absolute;
       bottom: 0; }
+  .right_container #pagination {
+    margin: 40px auto;
+    text-align: center;
+    width: 100%;
+    display: inline-block; }
+    .right_container #pagination .invisibleArrow {
+      visibility: hidden; }
+    .right_container #pagination input {
+      width: 70px;
+      padding: 10px;
+      text-align: center;
+      border: 5px solid #ddd;
+      font-weight: 600;
+      color: #3b3b3b;
+      margin: 0; }
+    .right_container #pagination button {
+      background: none;
+      border: none;
+      font-size: 1em;
+      padding: 0; }
+    .right_container #pagination p {
+      padding: 0;
+      background: #ddd;
+      display: inline-block;
+      width: 40px;
+      margin: 0 auto;
+      color: #fff;
+      font-weight: 600; }
 
 div.image_height {
   height: 95px;
@@ -243,41 +283,49 @@ div.text_section {
   box-shadow: 0px 0px 0px 5px #00abec; }
 
 div.info {
+  display: block;
   float: left;
   display: block;
   margin-right: 2.35765%;
-  width: 65.88078%;
-  margin-left: 17.05961%;
+  width: 100%;
+  padding: 0 20px;
   margin-top: 40px; }
+  div.info:after {
+    content: "";
+    display: table;
+    clear: both; }
   div.info:last-child {
     margin-right: 0; }
   div.info h2 {
-    text-align: center;
     font-size: 3.5em;
     font-weight: 700;
     margin: 0;
     letter-spacing: -3px;
     text-shadow: 0px 0px 1px #aaaaaa; }
   div.info p.subheading {
-    font-size: 1.75em;
-    font-weight: 300;
+    font-size: 2em;
+    font-weight: 100;
     color: #ccc;
-    text-align: center;
     margin: 0 0 30px;
-    letter-spacing: -2px; }
+    letter-spacing: -2px;
+    font-style: italic; }
   div.info div.desc_container {
-    width: 63%; }
+    clear: right; }
     div.info div.desc_container p {
       font-weight: 300;
       letter-spacing: -1px; }
-  div.info div.img_container img {
-    box-shadow: 0px 0px 0px 5px #f1f1f1;
-    display: block;
-    margin: 0 auto 50px;
-    max-width: 100%; }
+  div.info div.img_container {
+    width: 60%;
+    float: left;
+    margin-right: 30px; }
+    div.info div.img_container img {
+      box-shadow: 0px 0px 0px 5px #f1f1f1;
+      display: block;
+      margin: 0 auto 50px;
+      max-width: 100%; }
   div.info div.price_container {
     float: right;
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: 700;
     border: 5px solid #3b3b3b;
     color: #3b3b3b;
@@ -289,31 +337,20 @@ div.info {
     div.info div.price_container p {
       margin: 0; }
   div.info div.contacts_container {
-    margin-top: 40px;
-    border-top: 1px solid #ccc;
-    text-align: center; }
-    div.info div.contacts_container p.q {
-      font-size: 2em;
-      font-weight: 700;
-      letter-spacing: -2px;
-      margin-bottom: 5px;
-      text-shadow: 0px 0px 1px #aaaaaa; }
-    div.info div.contacts_container button {
-      margin: 13px 0 0;
-      background: #C1D90D;
-      color: #fff;
-      border: 0;
-      font-weight: 300;
-      padding: 10px 35px;
-      border-radius: 5px; }
+    clear: right;
+    border-top: 3px solid #C1D90D; }
     div.info div.contacts_container div {
-      border-top: 7px solid #C1D90D;
-      width: 50%;
-      padding: 20px;
-      margin: 20px auto 0; }
-    div.info div.contacts_container div p {
-      font-weight: 300;
+      padding-top: 10px;
+      text-align: right; }
+    div.info div.contacts_container div p:nth-child(1) {
+      font-weight: 700;
       font-size: 1.25em;
+      font-style: italic;
+      margin: 0;
+      letter-spacing: -1px; }
+    div.info div.contacts_container div p:nth-child(2) {
+      font-weight: 300;
+      font-size: 1em;
       margin: 0;
       letter-spacing: -1px; }
 
@@ -325,13 +362,25 @@ form.placingForm {
   margin-left: 17.05961%;
   border: 1px solid #ccc;
   padding: 25px 50px 50px;
-  margin-top: 40px; }
+  margin-top: 40px;
+  letter-spacing: -1px; }
   form.placingForm:last-child {
     margin-right: 0; }
+  form.placingForm .button {
+    -moz-appearance: button;
+    /* Firefox */
+    -webkit-appearance: button;
+    /* Safari and Chrome */
+    padding: 1px 10px;
+    width: 150px;
+    text-align: center;
+    background: #fff;
+    border: 1px dashed #3b3b3b;
+    cursor: pointer; }
   form.placingForm h2 {
     text-shadow: 0px 0px 1px #aaaaaa;
     font-weight: 700;
-    font-size: 5em;
+    font-size: 4em;
     letter-spacing: -5px;
     margin-top: 0;
     margin-bottom: 20px;
@@ -454,6 +503,9 @@ form.loginForm {
   position: absolute;
   text-align: center;
   width: 100%;
+  font-weight: 300;
+  font-size: 0.8em;
+  letter-spacing: -1px;
   z-index: 1; }
   .button_section .button_test {
     color: #3b3b3b;

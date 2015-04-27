@@ -1,6 +1,7 @@
 var Item = require('../models/item').Item;
 
-exports.addItem = function(item, next) {
+
+exports.newItem = function(item, next) {
   var newItem = new Item({
     title: item.title,
     category: item.category,
@@ -20,13 +21,30 @@ exports.addItem = function(item, next) {
   });
 };
 
-exports.findItem = function(appr, next) {
-  Item.find({approved: appr, category: { $in: [ 'cars', 'houses' ] } }, function(err, item) {
+exports.findList = function(appr, list, page, next) {
+  var query = {};
+  query.approved = appr;
+  var pages = 25*page;
+  if (list != null) {
+    query.category = list;
+  }
+  Item.find(query).skip(pages).sort({_id:-1}).limit(25).exec(function(err, item) {
     next(err, item);    
   });
 };
 
-exports.findOneItem = function(id, next) {
+exports.countList = function(appr, list, next) {
+  var query = {};
+  query.approved = appr;
+  if (list != null) {
+    query.category = list;
+  }
+  Item.find(query).count().exec(function(err, item) {
+    next(err, item);    
+  });
+};
+
+exports.findItem = function(id, next) {
   Item.findOne({_id: id}, function(err, item) {
     next(err, item);    
   });
@@ -38,7 +56,7 @@ exports.approveItem = function(id, next) {
   });
 };
 
-exports.rejectItem = function(id, next) {
+exports.deleteItem = function(id, next) {
   Item.remove({_id: id}, function(err, item) {
     next(err, item);    
   });

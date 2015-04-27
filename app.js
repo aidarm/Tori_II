@@ -7,6 +7,7 @@ var mongoose = require("mongoose");
 var passport = require('passport');
 var expressSession = require('express-session');
 var connectMongo = require('connect-mongo');
+var hbs = require('hbs');
 var azure = require('azure-storage');
 
 var config = require("./config");
@@ -47,6 +48,11 @@ app.use(expressSession(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
 
 app.use('/', routes);
 app.use('/item', item);

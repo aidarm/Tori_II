@@ -1,22 +1,23 @@
 <div class="info">
+    <div class="price_container">
+        <p>{{ item.price | currency: '&euro;' }}</p>
+    </div>
     <h2>{{ item.title }}</h2>
     <p class="subheading">{{ item.city }} / {{ item.created | date:'MMMM d, yyyy'}}</p>
     <div class="img_container">
         <img data-ng-src="{{ item.img }}">
     </div>
-    <div class="price_container">
-        <p>{{ item.price | currency: '&euro;' }}</p>
-    </div>
     <div class="desc_container">
         <p>{{ item.description }}</p>
     </div>
     <div class="contacts_container">
-        <p class="q">Interested? Contact the seller!</p>
-        <button data-ng-hide="hideButtShowPar" data-ng-click="showContacts()">show contact information</button>
-        <div data-ng-show="hideButtShowPar">
+        <div>
             <p>{{ item.name }}</p>
             <p>tel. {{ item.phone }}</p>
-            <p>{{ item.email }}</p>
         </div>
+    </div>
+    <div data-ng-if="user()" class="un_buttons">
+        <button data-icon="&#xe60a;" data-ng-click="approve(item._id)"></button>
+        <button data-icon="&#xe609;" data-ng-click="delete(item._id)"></button>
     </div>
 </div>

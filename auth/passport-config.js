@@ -2,16 +2,27 @@ module.exports = function() {
   var passport = require('passport');
   var passportLocal = require('passport-local');
   var userService = require('../services/user-service');
+  var bcrypt = require('bcrypt');
   
   passport.use(new passportLocal.Strategy({usernameField: 'email'}, function(email, password, next) {
+    
     userService.findUser(email, function(err, user) {
       if (err) {
         return next(err);
       }
-      if (!user || user.password !== password) {
+      if (!user) {
         return next(null, null);
       }
-      next(null, user);
+      
+      bcrypt.compare(password, user.password, function(err, same){
+        if (err) {
+          next(err);
+        }
+        if (!same) {
+          return (null, null);
+        }
+        next(null, user);
+      });
     });
   }));
   
