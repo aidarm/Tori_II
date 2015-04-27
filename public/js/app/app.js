@@ -1,4 +1,4 @@
-var app = angular.module('tori', ['ngRoute', 'ngDialog', 'ngFileUpload']);
+var app = angular.module('tori', ['ngRoute', 'ngDialog', 'ngFileUpload', 'angular-flexslider']);
 
 app.run(function($rootScope, $location) {
     $rootScope.location = $location;

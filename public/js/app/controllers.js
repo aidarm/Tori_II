@@ -242,6 +242,7 @@ app.controller('itemCTRL', ['$scope', '$http', '$routeParams', '$location', 'ngD
             }
         }
             $scope.item = data.data;
+            console.log($scope.item.img);
         }).error(function() {
             $location.path("/list/all");
         });
@@ -338,19 +339,46 @@ app.controller('newCTRL', ['$scope', '$http', '$location', 'Upload', function ($
         return $scope.upload($scope.files);
     }
 
+    // $scope.upload = function (files) {
+    //     if (files && files.length) {
+    //         // for (var i = 0; i < files.length; i++) {
+    //         //     var file = files[i];
+    //             Upload.upload({
+    //                 url: 'api/data',
+    //                 fields:  $scope.form,
+    //                 file: file
+    //             }).success(function () {
+    //                 $location.path('/');
+    //             });
+    //         //}
+    //     }
+    // };
+    
     $scope.upload = function (files) {
+        var links = [];
         if (files && files.length) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
+                var rando = Math.random().toString(36).slice(2);
+                var link = "https://tori.blob.core.windows.net/images/" + rando;
+                links.push(link);
                 Upload.upload({
-                    url: 'api/data',
-                    fields:  $scope.form,
+                    url: 'api/image',
+                    fields:  {rando},
                     file: file
                 }).success(function () {
-                    $location.path('/');
+                    //$location.path('/');
                 });
             }
         }
+        
+        $scope.form.img = links;
+        console.log(links);
+        
+        $http.post('/api/data', $scope.form).
+            success(function(data) {
+                $location.path('/');
+        })
     };
 
 }]);

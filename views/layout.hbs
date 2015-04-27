@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="/css/main.css"/>
 		<link rel="stylesheet" href="/css/manual.css"/>
         <link rel="stylesheet" href="/css/style.css"/>
-        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="/bower/flexslider/flexslider.css">
         <link href='https://fonts.googleapis.com/css?family=Londrina+Solid' rel='stylesheet' type='text/css'>
         <script src='https://www.google.com/recaptcha/api.js'></script>
         <base href="/">
@@ -55,14 +55,17 @@
             </div>
 
             <section data-ng-view=""></section>
-
+            
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="/bower/flexslider/jquery.flexslider.js"></script>
             <script src="/bower/angular/angular.min.js"></script>
+            <script src="/bower/angular-flexslider/angular-flexslider.js"></script>
             <script src="/bower/angular-route/angular-route.min.js"></script>
             <script src="/js/app/ng-file-upload-all.min.js"></script>
             <script src="/js/app/app.js"></script>
             <script src="/js/app/controllers.js"></script>
             <script src="/js/app/ngDialog.min.js"></script>
-           
+
         </div>
 
     </body>

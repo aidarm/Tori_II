@@ -9,7 +9,7 @@ var itemSchema = new Schema({
   name : {type: String, required: true},
   city: {type: String, required: true},
   phone: {type: String, required: true},
-  img: {type: String, default: "http://placehold.it/1000x700&text=TEST"},
+  img: {type: Array, required: true},
   approved: {type: Number, default: 0},
   created: {type: Date, default: Date.now}
 });

@@ -5,7 +5,11 @@
     <h2>{{ item.title }}</h2>
     <p class="subheading">{{ item.city }} / {{ item.created | date:'MMMM d, yyyy'}}</p>
     <div class="img_container">
-        <img data-ng-src="{{ item.img }}">
+        <flex-slider slide="img in item.img">
+            <li>
+                <img data-ng-src="{{ img }}">
+            </li>
+        </flex-slider>
     </div>
     <div class="desc_container">
         <p>{{ item.description }}</p>

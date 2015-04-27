@@ -69,7 +69,7 @@ router.get('/data', function(req, res, next) {
 });
 
 router.post('/data', multipartyMiddleware, function(req, res, next) {
-  console.log(req.body);
+  //console.log(req.body);
   // var files = req.files.file;
   // for (var i in files) {
   //   console.log(files[i].path);
@@ -84,16 +84,16 @@ router.post('/data', multipartyMiddleware, function(req, res, next) {
   //   console.log("blob not good");
   // })}
   
-  var title = req.body.title;
-  var randName = title.replace(/ /g, "") + Date.now();
-  console.log(req.files.file);
-  var filename = "https://tori.blob.core.windows.net/images/" + randName;
-  req.body.img = filename;
-  blobService.createBlockBlobFromLocalFile('images', randName, req.files.file.path, req.files.file.size, function(err) {
-    if (!err) {
-      res.send(true);
-    }
-  });
+  // var title = req.body.title;
+  // var randName = title.replace(/ /g, "") + Date.now();
+  // console.log(req.files.file);
+  // var filename = "https://tori.blob.core.windows.net/images/" + randName;
+  // req.body.img = filename;
+  // blobService.createBlockBlobFromLocalFile('images', randName, req.files.file.path, req.files.file.size, function(err) {
+  //   if (!err) {
+  //     res.send(true);
+  //   }
+  // });
   
   itemService.newItem(req.body, function(err) {
     if (err) {
@@ -103,8 +103,12 @@ router.post('/data', multipartyMiddleware, function(req, res, next) {
 
 });
 
-router.post('/image', function(req, res, next) {
-  
+router.post('/image', multipartyMiddleware, function(req, res, next) {
+  blobService.createBlockBlobFromLocalFile('images', req.body.rando, req.files.file.path, req.files.file.size, function(err) {
+    if (!err) {
+      console.log("YEAH!");
+    }
+  });
 });
 
 router.post('/update', function(req, res, next) {

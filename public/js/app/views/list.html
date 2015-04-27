@@ -4,7 +4,7 @@
     <ul>
         <li class="block" data-ng-repeat="item in data | orderBy : 'created' : reverse=true" data-ng-mouseenter="showIt = true" data-ng-mouseleave="showIt = false" data-super-hover>
             <div class="image_height" data-ng-click="view(item._id, item.category)">
-                <img data-ng-src="{{ item.img }}">
+                <img data-ng-src="{{ item.img[0] }}">
             </div>
             <div class="text_section">
                 <div data-ng-if="user()" class="button_section">
