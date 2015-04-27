@@ -16,11 +16,11 @@
     <input type="text" class="formTitle" name="formTitle" placeholder="e.g. Volvo S60" data-ng-model="form.title" maxlength="40" required/><br/>
 
     <label>Description</label><p> (350-700 char.)</p><br/>
-    <textarea class="formDescription" placeholder="Describe the stuff you want to sell" data-ng-model="form.description" maxlength="700"></textarea><br/>
+    <textarea class="formDescription" placeholder="Describe the stuff you want to sell" data-ng-model="form.description" maxlength="700" required></textarea><br/>
 
     <div class="formPrice">
         <label>Price(&euro;)</label><p> (max. 9 char.)</p><br/>
-        <input type="text" placeholder="e.g. 50 or 19.99" data-ng-model="form.price" maxlength="10"/><br/>
+        <input type="text" placeholder="e.g. 50 or 19.99" data-ng-model="form.price" maxlength="10" required/><br/>
     </div>
 
     <label>Image</label><p> (1 image min. width 700px)</p><br/>
@@ -30,7 +30,7 @@
 
         <div class="formCategory">
             <label>City</label><br/>
-            <select data-ng-model="form.city">
+            <select data-ng-model="form.city" required>
                 <option value="" selected>Select the city</option>
                 <option value="Helsinki">Helsinki</option>
                 <option value="Turku">Turku</option>
@@ -38,14 +38,14 @@
         </div>
 
         <label>Name</label><p> (max. 30 char.)</p><br/>
-        <input type="text" class="formTitle" placeholder="e.g. Pavel Bure" data-ng-model="form.name" maxlength="30"/><br/>
+        <input type="text" class="formTitle" placeholder="e.g. Pavel Bure" data-ng-model="form.name" maxlength="30"/ required><br/>
 
         <div class="notation">
             <p>ALL FIELDS ARE REQUIRED</p>
         </div>
 
         <label>Telephone number</label><p> (max. 10 char.)</p><br/>
-        <input type="text" class="formTitle" placeholder="e.g. 0461112233" data-ng-model="form.phone" maxlength="10"/><br/>
+        <input type="text" class="formTitle" placeholder="e.g. 0461112233" data-ng-model="form.phone" maxlength="10" required/><br/>
 
     </div>
 

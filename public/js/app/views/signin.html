@@ -1,16 +1,20 @@
-<form class="loginForm" data-ng-submit="submit()">
+<form class="loginForm" name="loginForm" data-ng-submit="submit()" novalidate>
 
     <h2>Sign in</h2>
 
     <label>Username</label><br/>
-    <input type="email" data-ng-model="form.email" name="email" autofocus/><br/>
+    <input type="email" data-ng-model="form.email" name="email" autofocus required ng-pattern="/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/"/><br/>
 
     <label>Password</label><br/>
-    <input type="password" data-ng-model="form.password" name="password"/><br/>
+    <input type="password" data-ng-model="form.password" name="password" required ng-pattern="/^[a-z0-9_-]{5,18}$/"/><br/>
 
     <button type="submit" data-icon="&#xe60a;"></button>
     
     <p>{{ errorMessage }}</p>
+    
+    <div data-ng-show="loginForm.$submitted">
+        <div data-ng-show="loginForm.email.$error.pattern || loginForm.password.$error.pattern">Enter your username/password</div>
+    </div>
     
     <div class="recaptcha"
         vc-recaptcha
