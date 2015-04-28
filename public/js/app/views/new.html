@@ -56,6 +56,14 @@
         </div>
     </div>
     
-    <p>{{ errorMessage }}</p>
+    <p style="text-align: center">{{ err }}</p>
+    
+    <div class="captcha"
+        vc-recaptcha
+        theme="'light'"
+        key="model.key"
+        on-create="setWidgetId(widgetId)"
+        on-success="setResponse(response)"
+    ></div>
 
 </form>

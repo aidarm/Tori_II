@@ -361,7 +361,7 @@ form.placingForm {
   width: 65.88078%;
   margin-left: 17.05961%;
   border: 1px solid #ccc;
-  padding: 25px 50px 50px;
+  padding: 25px 50px;
   margin-top: 40px;
   letter-spacing: -1px; }
   form.placingForm:last-child {
@@ -451,7 +451,7 @@ form.placingForm {
   form.placingForm div.formButton {
     text-align: center; }
     form.placingForm div.formButton button {
-      margin: 55px 0 15px;
+      margin: 30px 0;
       background: #00abec;
       color: #fff;
       border: 0;
@@ -463,13 +463,7 @@ form.placingForm {
 
 form.loginForm {
   text-align: center;
-  padding: 40px 50px 0;
-  position: relative; }
-  form.loginForm .recaptcha {
-    margin: 0 auto;
-    position: absolute;
-    bottom: 10px;
-    right: 30px; }
+  padding: 80px 20px 0; }
   form.loginForm h2 {
     text-shadow: 0px 0px 1px #aaaaaa;
     font-weight: 700;
@@ -493,7 +487,7 @@ form.loginForm {
     padding: 20px;
     font-weight: 400; }
   form.loginForm button {
-    margin: 15px 0 110px;
+    margin: 20px 0;
     background: #C1D90D;
     color: #fff;
     border: 0;
@@ -665,5 +659,14 @@ div.un_buttons {
     letter-spacing: -2px; }
     div.un_buttons button:nth-child(2) {
       background-color: #3F2559; }
+
+.captcha {
+  display: table;
+  margin: 0 auto 20px; }
+
+.formPriceEdit {
+  width: 40%;
+  padding-top: 5px;
+  padding-bottom: 10px; }
 
 /*# sourceMappingURL=main.css.map */

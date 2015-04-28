@@ -1,6 +1,10 @@
 var Item = require('../models/item').Item;
 
 exports.newItem = function(item, next) {
+  
+  // validation here epta // if () {...}
+  //
+  
   var newItem = new Item({
     title: item.title,
     category: item.category,
@@ -27,7 +31,7 @@ exports.findList = function(appr, list, page, next) {
   if (list != null) {
     query.category = list;
   }
-  Item.find(query).skip(pages).sort({_id:-1}).limit(25).exec(function(err, item) {
+  Item.find(query).skip(pages).sort({created:-1}).limit(25).exec(function(err, item) {
     next(err, item);    
   });
 };

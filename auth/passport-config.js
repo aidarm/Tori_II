@@ -3,6 +3,7 @@ module.exports = function() {
   var passportLocal = require('passport-local');
   var userService = require('../services/user-service');
   var bcrypt = require('bcrypt');
+  var validator = require('validator');
   var Recaptcha = require('recaptcha-verify');
   
   var recaptcha = new Recaptcha({
@@ -10,10 +11,14 @@ module.exports = function() {
   });
   
   passport.use(new passportLocal.Strategy({usernameField: 'email', passReqToCallback: true}, function(req, email, password, next) {
-    
+
     var response = req.body.response;
     recaptcha.checkResponse(response, function(err, response){
-      if(err || !response.success) return next(err);
+      if(err || !response.success 
+             || !validator.isEmail(email) 
+             || !validator.isAlphanumeric(password) 
+             || !validator.isLength(password, 6, 12)) 
+        return next(err);
     });
 
     userService.findUser(email, function(err, user) {

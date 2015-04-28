@@ -2,21 +2,17 @@
 
     <h2>Sign in</h2>
 
-    <label>Username</label><br/>
-    <input type="email" data-ng-model="form.email" name="email" autofocus required ng-pattern="/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/"/><br/>
+    <label>E-mail</label><br/>
+    <input type="email" data-ng-model="form.email" data-ng-pattern="/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/" watch-change="errNull()" name="email" autofocus required/><br/>
 
     <label>Password</label><br/>
-    <input type="password" data-ng-model="form.password" name="password" required ng-pattern="/^[a-z0-9_-]{5,18}$/"/><br/>
+    <input type="password" data-ng-model="form.password" data-ng-pattern="/^[a-z0-9_-]{6,12}$/" watch-change="errNull()" name="password" required/><br/>
 
-    <button type="submit" data-icon="&#xe60a;"></button>
+    <button type="submit" data-ng-disabled="loginForm.email.$error.required || loginForm.password.$error.required || loginForm.email.$error.pattern || loginForm.password.$error.pattern" data-icon="&#xe60a;"></button>
     
-    <p>{{ errorMessage }}</p>
+    <p>{{ err }}</p>
     
-    <div data-ng-show="loginForm.$submitted">
-        <div data-ng-show="loginForm.email.$error.pattern || loginForm.password.$error.pattern">Enter your username/password</div>
-    </div>
-    
-    <div class="recaptcha"
+    <div class="captcha"
         vc-recaptcha
         theme="'light'"
         key="model.key"

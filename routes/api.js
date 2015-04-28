@@ -6,6 +6,12 @@ var itemService = require("../services/item-service");
 var multiparty = require('connect-multiparty');
 var multipartyMiddleware = multiparty();
 
+var Recaptcha = require('recaptcha-verify');
+
+var recaptcha = new Recaptcha({
+    secret: '6Leo6AUTAAAAAKJ6Tc7R3G9aRxkZPN4ouNog85KJ'
+});
+
 process.env['AZURE_STORAGE_ACCOUNT'] = 'tori';
 process.env['AZURE_STORAGE_ACCESS_KEY'] = 'LIG32cEO2UKFrX5CVQVN22+l3P52zhqW9TDffd8McvApbjWYS6Scaw6wbO04WsstOk2sYubOzVJ00++ufIiRfQ==';
 
@@ -13,8 +19,6 @@ var azure = require('azure-storage');
 var blobService = azure.createBlobService();
 
 /* ----------------------------------- Protected Routes ----------------------------------- */
-
-router.get('/list/user', restrict);
 
 router.get('/approve', restrict);
 router.get('/reject', restrict);
@@ -71,44 +75,32 @@ router.get('/data', function(req, res, next) {
 });
 
 router.post('/data', multipartyMiddleware, function(req, res, next) {
-  //console.log(req.body);
-  // var files = req.files.file;
-  // for (var i in files) {
-  //   console.log(files[i].path);
-  //   console.log(files[i].size);
-  //   var randName = Date.now();
-  //   console.log("rand good");
-  //   blobService.createBlockBlobFromLocalFile('images', randName, files[i].path, files[i].size, function(err) {
-  //   if (!err) {
-  //     //res.send(true);
-  //     console.log("DONE!");
-  //   }
-  //   console.log("blob not good");
-  // })}
-  
-  // var title = req.body.title;
-  // var randName = title.replace(/ /g, "") + Date.now();
-  // console.log(req.files.file);
-  // var filename = "https://tori.blob.core.windows.net/images/" + randName;
-  // req.body.img = filename;
-  // blobService.createBlockBlobFromLocalFile('images', randName, req.files.file.path, req.files.file.size, function(err) {
-  //   if (!err) {
-  //     res.send(true);
-  //   }
-  // });
-  
-  itemService.newItem(req.body, function(err) {
-    if (err) {
-      console.log(err);
-    }
-  });
-
-});
-
-router.post('/image', multipartyMiddleware, function(req, res, next) {
-  blobService.createBlockBlobFromLocalFile('images', req.body.rando, req.files.file.path, req.files.file.size, function(err) {
-    if (!err) {
-      console.log("Image was uploaded");
+  var response = req.body.response;
+  recaptcha.checkResponse(response, function(err, response){
+    if (err || !response.success) {
+      res.status(500).send('Hello, robot!');
+    } else {
+      var urls = [];
+      var files = req.files.file;
+      
+      for (var i in files) {
+        console.log(files[i].path);
+        console.log(files[i].size);
+        var randName = Math.random().toString(36).slice(2);
+        
+        blobService.createBlockBlobFromLocalFile('images', randName, files[i].path, files[i].size, function(err) {})
+        
+        urls.push("https://tori.blob.core.windows.net/images/" + randName);
+      }
+      
+      req.body.img = urls;
+   
+      itemService.newItem(req.body, function(err) {
+        if (err) {
+          console.log(err);
+        }
+        res.end();
+      });
     }
   });
 });

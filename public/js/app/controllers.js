@@ -40,8 +40,10 @@ app.controller('filterController', ['$scope', '$location', function($scope, $loc
 
 // LIST PAGE CONTROLLER
 
-app.controller('listCTRL', ['$scope', '$http', 'Upload', '$location', '$routeParams', 'ngDialog', function ($scope, $http, Upload, $location, $routeParams, ngDialog) {
+app.controller('listCTRL', ['$scope', '$http', 'Upload', '$location', '$routeParams', 'ngDialog', 'directiveService', function ($scope, $http, Upload, $location, $routeParams, ngDialog, directiveService) {
     
+    $scope.name ="dsffds"
+
     var query = {
         params: {
             single: false,
@@ -69,15 +71,17 @@ app.controller('listCTRL', ['$scope', '$http', 'Upload', '$location', '$routePar
         }
         $scope.data = data.data;
         $scope.totalCount = data.count;
+    
+        directiveService.publish("This is a test.");
         
         $scope.pageLimit = Math.ceil($scope.totalCount / 25);
         
         $scope.partCount = function() {
             var x = ($routeParams.page - 1)*25 + 1;
             if ($scope.totalCount < $routeParams.page*25) {
-                y = $scope.totalCount;
+                var y = $scope.totalCount;
             } else {
-                y = $routeParams.page*25;
+                var y = $routeParams.page*25;
             }
             return "# " + x + " - " + y + " out of " + $scope.totalCount;
         }
@@ -164,21 +168,6 @@ app.controller('listCTRL', ['$scope', '$http', 'Upload', '$location', '$routePar
                     }
                 });
 
-                // $scope.onFileSelect = function ($files) {
-                //     var file = $files[0];
-                //     if (file.type.indexOf('image') == -1) { $scope.error = 'Please choose a JPEG or PNG file.' }
-                //     if (file.size > 2097152) { $scope.error = 'File size cannot exceed 2 MB.'; }
-                //     $scope.upload = $upload.upload({
-                //             url: 'php/admin/update.php',
-                //             headers: { 'Content-Type': file.type },
-                //             method: 'POST',
-                //             data: $scope.form,
-                //             file: file
-                //     }).success(function (data) {
-                //         $scope.form.image = data;
-                //     })
-                // };
-
                 $scope.send = function () {
                     $http({
                         url: 'api/update',
@@ -243,7 +232,6 @@ app.controller('itemCTRL', ['$scope', '$http', '$routeParams', '$location', 'ngD
             }
         }
             $scope.item = data.data;
-            console.log($scope.item.img);
         }).error(function() {
             $location.path("/list/all");
         });
@@ -306,80 +294,44 @@ app.controller('itemCTRL', ['$scope', '$http', '$routeParams', '$location', 'ngD
 
 // AD PLACING PAGE CONTROLLER
 
-app.controller('newCTRL', ['$scope', '$http', '$location', 'Upload', function ($scope, $http, $location, Upload) {
+app.controller('newCTRL', ['$scope', '$http', '$location', 'Upload', 'vcRecaptchaService', function ($scope, $http, $location, Upload, vcRecaptchaService) {
     
-    // $scope.onFileSelect = function($files) {
-    //     alert("Image is selected!");
-    //     var file = $files[0];
-    //     //alert(file.type);
-    //     if (file.type.indexOf('image') == -1) { $scope.error = 'Please choose a JPEG or PNG file.' }
-    //     if (file.size > 2097152) { $scope.error = 'File size cannot exceed 2 MB.'; }
-    //     $scope.upload = function() {
-    //         $upload.upload({
-    //             url: 'api/data',
-    //             headers: { 'Content-Type': file.type },
-    //             method: 'POST',
-    //             data: $scope.form,
-    //             file: file
-    //         }).success(function(data) {
-    //             $location.path('/');
-    //         });
-    //     }
-    // };
+    $scope.form = {};
     
-    // $scope.submit = function() {
-    //     return $scope.upload();
-    // }
+    $scope.form.response = null;
+    $scope.widgetId = null;
     
-    //     $scope.$watch('files', function () {
-    //     $scope.upload($scope.files);
-    // });
-    // $scope.log = '';
+    $scope.model = {
+        key: '6Leo6AUTAAAAAF2YQmj0nlMRmpVuqMH_pTh0-_5P'
+    };
+    
+    $scope.setResponse = function (response) {
+        $scope.form.response = response;
+    };
+    
+    $scope.setWidgetId = function (widgetId) {
+        $scope.widgetId = widgetId;
+    };
     
     $scope.submit = function() {
         return $scope.upload($scope.files);
     }
 
-    // $scope.upload = function (files) {
-    //     if (files && files.length) {
-    //         // for (var i = 0; i < files.length; i++) {
-    //         //     var file = files[i];
-    //             Upload.upload({
-    //                 url: 'api/data',
-    //                 fields:  $scope.form,
-    //                 file: file
-    //             }).success(function () {
-    //                 $location.path('/');
-    //             });
-    //         //}
-    //     }
-    // };
-    
     $scope.upload = function (files) {
-        var links = [];
         if (files && files.length) {
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var rando = Math.random().toString(36).slice(2);
-                var link = "https://tori.blob.core.windows.net/images/" + rando;
-                links.push(link);
+            alert("Uploading")
                 Upload.upload({
-                    url: 'api/image',
-                    fields:  {rando},
-                    file: file
+                    url: 'api/data',
+                    fields:  $scope.form,
+                    file: files
                 }).success(function () {
-                    //$location.path('/');
-                });
-            }
+                    $location.path('/');
+                }).error(function(err) {
+                    alert(err);
+                    $scope.errorMessage = "Invalid shit or/and you are a robot!";
+                    vcRecaptchaService.reload($scope.widgetId);
+            });
         }
-        
-        $scope.form.img = links;
-        console.log(links);
-        
-        $http.post('/api/data', $scope.form).
-            success(function(data) {
-                $location.path('/');
-        })
     };
 
 }]);
@@ -388,7 +340,14 @@ app.controller('newCTRL', ['$scope', '$http', '$location', 'Upload', function ($
 
 app.controller('signinCTRL', ['$scope', '$http', '$location', '$window', 'ngDialog', 'vcRecaptchaService', function($scope, $http, $location, $window, ngDialog, vcRecaptchaService){
     
-    $scope.response = null;
+    $scope.form = {};
+    $scope.err = null;
+    
+    $scope.errNull = function(){
+        return $scope.err = null;
+    }
+    
+    $scope.form.response = null;
     $scope.widgetId = null;
     
     $scope.model = {
@@ -396,16 +355,13 @@ app.controller('signinCTRL', ['$scope', '$http', '$location', '$window', 'ngDial
     };
     
     $scope.setResponse = function (response) {
-        console.info('Response available');
         $scope.form.response = response;
     };
     
     $scope.setWidgetId = function (widgetId) {
-        console.info('Created widget ID: %s', widgetId);
+        $scope.errNull();
         $scope.widgetId = widgetId;
     };
-    
-    $scope.errorMessage = null;
     
     $scope.submit = function () {
         $http.post('/api/signin', $scope.form).
@@ -413,7 +369,7 @@ app.controller('signinCTRL', ['$scope', '$http', '$location', '$window', 'ngDial
                 $scope.closeThisDialog();
                 location.reload();
             }).error(function(err) {
-                $scope.errorMessage = "Invalid credentials or/and you are a robot!";
+                $scope.err = "Invalid credentials or/and you are a robot!";
                 vcRecaptchaService.reload($scope.widgetId);
             });
     };

@@ -4,7 +4,7 @@ var restrict = require('../auth/restrict');
 
 // PROTECTED ROUTES
 
-router.get('/list/user', restrict);
+router.get('/list/user/:page', restrict);
 
 // router.post('/admin', function(req, res, next) {
 //   console.log(req.body);

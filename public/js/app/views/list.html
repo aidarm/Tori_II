@@ -20,10 +20,7 @@
             </div>
         </li>
     </ul>
-    <div id="pagination" data-ng-if="!boxShow()">
-        <button data-ng-class="{invisibleArrow: isHidden()}" data-ng-disabled="isHidden()" data-ng-click="previousPage()" data-icon="&#xe60c";></button>
-        <input type="text" maxlength="3" data-ng-model="pageNumber" data-ng-enter="goToPage(pageNumber)">
-        <button data-ng-class="{invisibleArrow: !arrowHShow()}" data-ng-click="nextPage()" data-icon="&#xe60d;"></button> <br/>
-        <p>/{{pageLimit}}</p>
-    </div>
+    <pagibox></pagibox>
 </div>
+
+
