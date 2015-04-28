@@ -413,19 +413,41 @@ form.placingForm {
   padding: 25px 50px;
   margin-top: 40px;
   letter-spacing: -1px;
+  font-family: $font;
+  font-size: 1em;
   
-  .button {
+  .buttonimg {
     -moz-appearance: button;
     /* Firefox */
     -webkit-appearance: button;
     /* Safari and Chrome */
-    padding: 1px 10px;
-    width: 150px;
-    text-align: center;
-    background: #fff;
-    border: 1px dashed #3b3b3b;
     cursor: pointer;
-}
+  }
+  
+  .imgSelected {
+    padding:0;
+    margin: 10px 0 0 0;
+  }
+  
+  div#errNew {
+    font-size: 0.7em;
+    color: #ED0015;
+    border: 1px solid #ED0015;
+    padding: 10px 70px;
+    text-align: center;
+    margin: 0 auto 20px;
+    display: table;
+    letter-spacing: 0;
+  }
+  
+  .data_icon {
+    color: #ED0015;
+    font-size: 1.2em;
+    padding: 0;
+    margin: 0;
+    display: table-cell;
+    vertical-align: middle;
+  }
 
   h2 {
     text-shadow : 0px 0px 1px #aaaaaa;
@@ -445,7 +467,7 @@ form.placingForm {
 
   p {
     display: inline;
-    font-size: 0.8em;
+    font-size: 1em;
     color: #bbb;
   }
 
@@ -504,7 +526,7 @@ form.placingForm {
 
   div.contact_information {
     background-color: #C1D90D;
-    margin-top: 15px;
+    margin-top: 30px;
     padding: 20px;
 
     p {
@@ -545,14 +567,6 @@ form.placingForm {
 
     button {
       margin: 30px 0;
-      background: #00abec;
-      color: #fff;
-      border: 0;
-      font-weight: 700;
-      padding: 15px 40px;
-      border-radius: 5px;
-      font-size: 1.5em;
-      letter-spacing: -2px;
     }
   }
 }
@@ -562,6 +576,16 @@ form.placingForm {
 form.loginForm {
   text-align: center;
   padding: 80px 20px 0;
+  
+  div#errSign {
+    font-size: 0.7em;
+    color: #ED0015;
+    border: 1px solid #ED0015;
+    padding: 5px;
+    text-align: center;
+    margin: 0 auto 20px;
+    display: table;
+  }
 
   h2 {
     text-shadow : 0px 0px 1px #aaaaaa;
@@ -570,6 +594,15 @@ form.loginForm {
     letter-spacing: -4px;
     margin-top: 0;
     margin-bottom: 60px;
+  }
+  
+  .data_icon {
+    color: #ED0015;
+    font-size: 1.2em;
+    padding: 0;
+    margin: 0;
+    display: table-cell;
+    vertical-align: middle;
   }
 
   label {
@@ -584,25 +617,9 @@ form.loginForm {
     font-weight: 300;
   }
 
-  div.login_error {
-    margin-bottom: 20px;
-    background-color: #F27405;
-    color: #fff;
-    display: inline-block;
-    padding: 20px;
-    font-weight: 400;
-  }
-
   button {
     margin: 20px 0;
-    background: #C1D90D;
-    color: #fff;
-    border: 0;
-    font-weight: 700;
-    padding: 20px 50px;
-    border-radius: 5px;
-    font-size: 1.5em;
-    letter-spacing: -2px;
+
   }
 }
 
@@ -637,7 +654,6 @@ form.loginForm {
   }
 }
 
-
 /////////////////////////////////////////////////////// CONFIRMATION WINDOWS ///////////////////////////////////////////////////////////
 
 div.confirm {
@@ -645,29 +661,17 @@ div.confirm {
 
   h2 {
     text-align: center;
-    font-size: 5em;
+    font-size: 4em;
     line-height: 1em;
     letter-spacing: -5px;
     font-weight: bold;
-    height: 50%;
+    height: 40%;
     text-shadow : 0px 0px 1px #ddd;
   }
 
   button {
-    margin: 25px 15px 50px;
-    background: #C1D90D;
-    color: #fff;
-    border: 0;
-    width: 100px;
-    font-weight: 700;
-    padding: 15px 25px;
-    border-radius: 5px;
-    font-size: 1.5em;
-    letter-spacing: -2px;
+    margin: 10px 15px 50px;
 
-    &:nth-child(3) {
-      background-color: #F27405;
-    }
   }
 }
 
@@ -807,20 +811,7 @@ form.editForm {
     text-align: center;
 
     button {
-      margin: 55px 25px 15px;
-      background: #00abec;
-      color: #fff;
-      border: 0;
-      width: 150px;
-      font-weight: 700;
-      padding: 15px 35px;
-      border-radius: 5px;
-      font-size: 1.5em;
-      letter-spacing: -2px;
-
-      &:nth-child(2) {
-        background-color: #F27405;
-      }
+      margin: 40px 25px 15px;
     }
   }
 }
@@ -832,20 +823,7 @@ div.un_buttons {
   width: 100%;
 
   button {
-    margin: 55px 25px 15px;
-    background: #00abec;
-    color: #fff;
-    border: 0;
-    width: 150px;
-    font-weight: 700;
-    padding: 15px 35px;
-    border-radius: 5px;
-    font-size: 1.5em;
-    letter-spacing: -2px;
-
-    &:nth-child(2) {
-      background-color: #3F2559;
-    }
+    margin: 40px 25px 15px;
   }
 }
 

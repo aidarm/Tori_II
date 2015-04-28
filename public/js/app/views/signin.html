@@ -8,9 +8,9 @@
     <label>Password</label><br/>
     <input type="password" data-ng-model="form.password" data-ng-pattern="/^[a-z0-9_-]{6,12}$/" watch-change="errNull()" name="password" required/><br/>
 
-    <button type="submit" data-ng-disabled="loginForm.email.$error.required || loginForm.password.$error.required || loginForm.email.$error.pattern || loginForm.password.$error.pattern" data-icon="&#xe60a;"></button>
+    <button class="button button-action button-large button-rounded" type="submit" data-ng-disabled="loginForm.email.$error.required || loginForm.password.$error.required || loginForm.email.$error.pattern || loginForm.password.$error.pattern" data-icon="&#xe60a;"></button>
     
-    <p>{{ err }}</p>
+    <div data-ng-if="err" id="errSign"><div class="data_icon" data-icon="&#xe607;"></div> {{ err }}</div>
     
     <div class="captcha"
         vc-recaptcha

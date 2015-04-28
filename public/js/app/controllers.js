@@ -34,6 +34,14 @@ app.controller('filterController', ['$scope', '$location', function($scope, $loc
     $scope.checkRoute = function () {
         if ($location.path() == '/item/new') { return 0 } else { return 1 };
     };
+       
+    $scope.getClass = function(path) {
+        if ($location.path().substr(0, path.length) == path) {
+            return "selected"
+        } else {
+            return ""
+        }
+    }
 
 }]);
 
@@ -227,10 +235,10 @@ app.controller('itemCTRL', ['$scope', '$http', '$routeParams', '$location', 'ngD
     $http.get("api/data", query)
         .success(function(data) {
             $scope.user = function() {
-            if (data.user && data.data.approved == 0) {
-                return true;
+                if (data.user && data.data.approved == 0) {
+                    return true;
+                }
             }
-        }
             $scope.item = data.data;
         }).error(function() {
             $location.path("/list/all");
@@ -319,20 +327,24 @@ app.controller('newCTRL', ['$scope', '$http', '$location', 'Upload', 'vcRecaptch
 
     $scope.upload = function (files) {
         if (files && files.length) {
-            alert("Uploading")
-                Upload.upload({
+            Upload.upload({
                     url: 'api/data',
                     fields:  $scope.form,
                     file: files
                 }).success(function () {
-                    $location.path('/');
+                    $location.path('/list/all/1');
                 }).error(function(err) {
-                    alert(err);
-                    $scope.errorMessage = "Invalid shit or/and you are a robot!";
+                    $scope.err = err;
                     vcRecaptchaService.reload($scope.widgetId);
             });
         }
     };
+    
+    $scope.selected = function (files) {
+        if (files && files.length) {
+            $scope.imgSelected = "    (" + files.length + " selected)";
+        }
+    }
 
 }]);
 
@@ -369,7 +381,7 @@ app.controller('signinCTRL', ['$scope', '$http', '$location', '$window', 'ngDial
                 $scope.closeThisDialog();
                 location.reload();
             }).error(function(err) {
-                $scope.err = "Invalid credentials or/and you are a robot!";
+                $scope.err = "INVALID CREDENTIALS OR/AND YOU ARE A ROBOT!";
                 vcRecaptchaService.reload($scope.widgetId);
             });
     };

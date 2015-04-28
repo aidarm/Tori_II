@@ -16,6 +16,8 @@
         <link rel="stylesheet" href="/css/main.css"/>
 		<link rel="stylesheet" href="/css/manual.css"/>
         <link rel="stylesheet" href="/css/style.css"/>
+        <link rel="stylesheet" href="/css/animate.css"/>
+        <link rel="stylesheet" href="/css/buttons.css"/>
         <link rel="stylesheet" type="text/css" href="/bower/flexslider/flexslider.css">
         <link href='https://fonts.googleapis.com/css?family=Londrina+Solid' rel='stylesheet' type='text/css'>
         <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
@@ -26,7 +28,7 @@
 
         <div class="wrapper">
 
-            <header data-ng-controller="navController">
+            <header id="navctrl" data-ng-controller="navController">
                 <div class="logo"><a data-ng-href="/list/all/1">Tori</a></div>
                 <nav>
                     <ul>
@@ -41,15 +43,15 @@
                 </nav>
             </header>
 	
-	        <div class="top_container" data-ng-controller="filterController" data-ng-show="checkRoute()">
+	        <div class="top_container" data-ng-controller="filterController">
                 <ul>
-                    <li data-ng-click="go('/list/all/1')">all</li>
-                    <li data-ng-click="go('/list/cars/1')" data-icon="&#xe604;">cars</li>
-                    <li data-ng-click="go('/list/houses/1')" data-icon="&#xe600;">houses</li>
+                    <li data-ng-class="{'selected': $root.weareon=='all'}" data-ng-click="go('/list/all/1')">all</li>
+                    <li data-ng-class="{'selected': $root.weareon=='cars'}" data-ng-click="go('/list/cars/1')" data-icon="&#xe604;">cars</li>
+                    <li data-ng-class="{'selected': $root.weareon=='houses'}" data-ng-click="go('/list/houses/1')" data-icon="&#xe600;">houses</li>
                 </ul>
                 <ul class="right">
                     {{#if user}}
-                    <li data-ng-class="getClass('/admin')" data-ng-click="go('list/user/1')" data-icon="&#xe602;">unapproved</li>
+                    <li data-ng-class="{'selected': $root.weareon=='user'}" data-ng-click="go('list/user/1')" data-icon="&#xe602;">unapproved</li>
                     {{/if}}
                 </ul>
             </div>
@@ -64,7 +66,10 @@
             <script src="/js/app/ng-file-upload-all.min.js"></script>
             <script src="/js/app/app.js"></script>
             <script src="/js/app/controllers.js"></script>
+            <script src="/js/app/list.js"></script>
+            <script src="/js/app/item.js"></script>
             <script src="/js/app/ngDialog.min.js"></script>
+            <script src="/bower/angular-scroll/angular-scroll.min.js"></script>
             <script src="/bower/angular-recaptcha/release/angular-recaptcha.min.js"></script>
 
         </div>

@@ -363,20 +363,36 @@ form.placingForm {
   border: 1px solid #ccc;
   padding: 25px 50px;
   margin-top: 40px;
-  letter-spacing: -1px; }
+  letter-spacing: -1px;
+  font-family: "proxima-nova", sans-serif;
+  font-size: 1em; }
   form.placingForm:last-child {
     margin-right: 0; }
-  form.placingForm .button {
+  form.placingForm .buttonimg {
     -moz-appearance: button;
     /* Firefox */
     -webkit-appearance: button;
     /* Safari and Chrome */
-    padding: 1px 10px;
-    width: 150px;
-    text-align: center;
-    background: #fff;
-    border: 1px dashed #3b3b3b;
     cursor: pointer; }
+  form.placingForm .imgSelected {
+    padding: 0;
+    margin: 10px 0 0 0; }
+  form.placingForm div#errNew {
+    font-size: 0.7em;
+    color: #ED0015;
+    border: 1px solid #ED0015;
+    padding: 10px 70px;
+    text-align: center;
+    margin: 0 auto 20px;
+    display: table;
+    letter-spacing: 0; }
+  form.placingForm .data_icon {
+    color: #ED0015;
+    font-size: 1.2em;
+    padding: 0;
+    margin: 0;
+    display: table-cell;
+    vertical-align: middle; }
   form.placingForm h2 {
     text-shadow: 0px 0px 1px #aaaaaa;
     font-weight: 700;
@@ -391,7 +407,7 @@ form.placingForm {
     margin-bottom: 4px; }
   form.placingForm p {
     display: inline;
-    font-size: 0.8em;
+    font-size: 1em;
     color: #bbb; }
   form.placingForm select {
     width: 150px;
@@ -426,7 +442,7 @@ form.placingForm {
       width: 100%; }
   form.placingForm div.contact_information {
     background-color: #C1D90D;
-    margin-top: 15px;
+    margin-top: 30px;
     padding: 20px; }
     form.placingForm div.contact_information p {
       color: #fff; }
@@ -451,19 +467,19 @@ form.placingForm {
   form.placingForm div.formButton {
     text-align: center; }
     form.placingForm div.formButton button {
-      margin: 30px 0;
-      background: #00abec;
-      color: #fff;
-      border: 0;
-      font-weight: 700;
-      padding: 15px 40px;
-      border-radius: 5px;
-      font-size: 1.5em;
-      letter-spacing: -2px; }
+      margin: 30px 0; }
 
 form.loginForm {
   text-align: center;
   padding: 80px 20px 0; }
+  form.loginForm div#errSign {
+    font-size: 0.7em;
+    color: #ED0015;
+    border: 1px solid #ED0015;
+    padding: 5px;
+    text-align: center;
+    margin: 0 auto 20px;
+    display: table; }
   form.loginForm h2 {
     text-shadow: 0px 0px 1px #aaaaaa;
     font-weight: 700;
@@ -471,6 +487,13 @@ form.loginForm {
     letter-spacing: -4px;
     margin-top: 0;
     margin-bottom: 60px; }
+  form.loginForm .data_icon {
+    color: #ED0015;
+    font-size: 1.2em;
+    padding: 0;
+    margin: 0;
+    display: table-cell;
+    vertical-align: middle; }
   form.loginForm label {
     display: inline-block;
     margin-bottom: 5px;
@@ -479,23 +502,8 @@ form.loginForm {
     padding: 3px 5px;
     margin-bottom: 12px;
     font-weight: 300; }
-  form.loginForm div.login_error {
-    margin-bottom: 20px;
-    background-color: #F27405;
-    color: #fff;
-    display: inline-block;
-    padding: 20px;
-    font-weight: 400; }
   form.loginForm button {
-    margin: 20px 0;
-    background: #C1D90D;
-    color: #fff;
-    border: 0;
-    font-weight: 700;
-    padding: 20px 50px;
-    border-radius: 5px;
-    font-size: 1.5em;
-    letter-spacing: -2px; }
+    margin: 20px 0; }
 
 .button_section {
   background-color: #fff;
@@ -523,25 +531,14 @@ div.confirm {
   text-align: center; }
   div.confirm h2 {
     text-align: center;
-    font-size: 5em;
+    font-size: 4em;
     line-height: 1em;
     letter-spacing: -5px;
     font-weight: bold;
-    height: 50%;
+    height: 40%;
     text-shadow: 0px 0px 1px #ddd; }
   div.confirm button {
-    margin: 25px 15px 50px;
-    background: #C1D90D;
-    color: #fff;
-    border: 0;
-    width: 100px;
-    font-weight: 700;
-    padding: 15px 25px;
-    border-radius: 5px;
-    font-size: 1.5em;
-    letter-spacing: -2px; }
-    div.confirm button:nth-child(3) {
-      background-color: #F27405; }
+    margin: 10px 15px 50px; }
 
 form.editForm {
   padding: 25px 50px 50px;
@@ -629,36 +626,14 @@ form.editForm {
   form.editForm div.formButton {
     text-align: center; }
     form.editForm div.formButton button {
-      margin: 55px 25px 15px;
-      background: #00abec;
-      color: #fff;
-      border: 0;
-      width: 150px;
-      font-weight: 700;
-      padding: 15px 35px;
-      border-radius: 5px;
-      font-size: 1.5em;
-      letter-spacing: -2px; }
-      form.editForm div.formButton button:nth-child(2) {
-        background-color: #F27405; }
+      margin: 40px 25px 15px; }
 
 div.un_buttons {
   display: inline-block;
   text-align: center;
   width: 100%; }
   div.un_buttons button {
-    margin: 55px 25px 15px;
-    background: #00abec;
-    color: #fff;
-    border: 0;
-    width: 150px;
-    font-weight: 700;
-    padding: 15px 35px;
-    border-radius: 5px;
-    font-size: 1.5em;
-    letter-spacing: -2px; }
-    div.un_buttons button:nth-child(2) {
-      background-color: #3F2559; }
+    margin: 40px 25px 15px; }
 
 .captcha {
   display: table;

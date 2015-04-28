@@ -4,7 +4,7 @@
 
     <div class="formCategory">
         <label>Category</label><br/>
-        <select data-ng-model="form.category" required>
+        <select data-ng-model="form.category" name="formCategory" required>
             <option value="" selected>Select the category</option>
             <option value="cars">Cars</option>
             <option value="houses">Houses</option>
@@ -12,51 +12,61 @@
 
     </div>
 
-    <label>Title</label><p> (max. 40 char.)</p><br/>
+    <label>Title</label><br/>
     <input type="text" class="formTitle" name="formTitle" placeholder="e.g. Volvo S60" data-ng-model="form.title" maxlength="40" required/><br/>
 
-    <label>Description</label><p> (350-700 char.)</p><br/>
-    <textarea class="formDescription" placeholder="Describe the stuff you want to sell" data-ng-model="form.description" maxlength="700" required></textarea><br/>
+    <label>Description</label><br/>
+    <textarea class="formDescription" name="formDescription" placeholder="Describe the stuff you want to sell" data-ng-model="form.description" maxlength="700" required></textarea><br/>
 
     <div class="formPrice">
-        <label>Price(&euro;)</label><p> (max. 9 char.)</p><br/>
-        <input type="text" placeholder="e.g. 50 or 19.99" data-ng-model="form.price" maxlength="10" required/><br/>
+        <label>Price (&euro;)</label><br/>
+        <input type="text" placeholder="e.g. 50 or 19.99" name="formPrice" data-ng-model="form.price" maxlength="10" data-ng-pattern="/^\d+$/" required/><br/>
     </div>
 
-    <label>Image</label><p> (1 image min. width 700px)</p><br/>
-    <div class="button" ngf-select ng-model="files" ngf-multiple="true">SELECT FILE</div>
-    {{ message }}
+    <label>Image</label><p>{{ imgSelected }}</p><br/>
+    <div class="buttonimg button button-3d button-highlight button-small" ngf-change="selected($files, $event)" ngf-select ng-model="files" ngf-multiple="true">SELECT FILE(S)</div></br>
     <div class="contact_information">
 
         <div class="formCategory">
             <label>City</label><br/>
-            <select data-ng-model="form.city" required>
+            <select data-ng-model="form.city" name="formCity" required>
                 <option value="" selected>Select the city</option>
                 <option value="Helsinki">Helsinki</option>
                 <option value="Turku">Turku</option>
             </select><br/>
         </div>
 
-        <label>Name</label><p> (max. 30 char.)</p><br/>
-        <input type="text" class="formTitle" placeholder="e.g. Pavel Bure" data-ng-model="form.name" maxlength="30"/ required><br/>
+        <label>Name</label><br/>
+        <input type="text" class="formTitle" placeholder="e.g. Pavel Bure" name="formName" data-ng-model="form.name" maxlength="30" data-ng-pattern="/^[a-zA-Z]+$/" required/><br/>
 
         <div class="notation">
             <p>ALL FIELDS ARE REQUIRED</p>
         </div>
 
-        <label>Telephone number</label><p> (max. 10 char.)</p><br/>
-        <input type="text" class="formTitle" placeholder="e.g. 0461112233" data-ng-model="form.phone" maxlength="10" required/><br/>
+        <label>Telephone number</label><br/>
+        <input type="text" class="formTitle" placeholder="e.g. 0461112233" name="formPhone" data-ng-model="form.phone" maxlength="10" data-ng-pattern="/^\d+$/" required/><br/>
 
     </div>
 
     <div class="formButton">
-        <button type="submit" data-icon="&#xe60a;"></button>
-        <div ng-show="placingForm.$submitted">
-            <div data-ng-show="placingForm.formTitle.$error.required">USE DIALOG!</div>
-        </div>
+        <button class="button button-action button-large button-rounded" type="submit" data-icon="&#xe60a;" data-ng-disabled="
+           placingForm.formTitle.$error.required 
+        || placingForm.formCategory.$error.required 
+        || placingForm.formDescription.$error.required 
+        || placingForm.formPrice.$error.required 
+        || placingForm.formCity.$error.required 
+        || placingForm.formName.$error.required 
+        || placingForm.formPhone.$error.required
+        || !imgSelected
+        || placingForm.formCity.$error.pattern
+        || placingForm.formName.$error.pattern
+        || placingForm.formPrice.$error.pattern"
+        ></button>
     </div>
     
-    <p style="text-align: center">{{ err }}</p>
+    <div data-ng-if="err" id="errNew"><div class="data_icon" data-icon="&#xe607;"></div> {{ err }}</div>
+    
+    <br/>
     
     <div class="captcha"
         vc-recaptcha

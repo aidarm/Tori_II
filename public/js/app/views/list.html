@@ -1,8 +1,8 @@
-<div class="right_container">
+<div class="right_container" id="rc">
     <h1 class="pageHeading">{{ pageHeading | capitalize }}</h1>
     <p class="showCount">{{ partCount() }}</p>
     <ul>
-        <li class="block" data-ng-repeat="item in data | orderBy : 'created' : reverse=true" data-ng-mouseenter="showIt = true" data-ng-mouseleave="showIt = false" data-super-hover>
+        <li class="block" data-ng-repeat="item in data" data-ng-mouseenter="showIt = true" data-ng-mouseleave="showIt = false" data-super-hover>
             <div class="image_height" data-ng-click="view(item._id, item.category)">
                 <img data-ng-src="{{ item.img[0] }}">
             </div>
@@ -20,7 +20,12 @@
             </div>
         </li>
     </ul>
-    <pagibox></pagibox>
+    <div id="pagination" data-ng-if="!boxShow()">
+        <button data-ng-class="{invisibleArrow: isHidden()}" data-ng-disabled="isHidden()" data-ng-click="previousPage()" data-icon="&#xe60c";></button>
+        <input type="text" maxlength="3" data-ng-model="pageNumber" data-ng-enter="goToPage(pageNumber)">
+        <button data-ng-class="{invisibleArrow: arrowHShow()}" data-ng-click="nextPage()" data-icon="&#xe60d;"></button> <br/>
+        <p>/{{pageLimit}}</p>
+    </div>
 </div>
 
 

@@ -1,4 +1,4 @@
-<form class="editForm" data-ng-submit="submitForm()">
+<form class="editForm" data-ng-submit="submitForm()" novalidate>
     <h2>Edit</h2>
     <div class="formCategory">
         <label>Category</label><br />
@@ -8,13 +8,13 @@
             <option value="houses">Houses</option>
         </select><br />
     </div>
-    <label>Title</label><p> (max. 40 char.)</p><br />
-    <input type="text" class="formTitle" placeholder="e.g. Volvo S60" data-ng-model="form.title" maxlength="40" /><br />
-    <label>Description</label><p> (350-700 char.)</p><br />
-    <textarea class="formDescription" placeholder="Describe the stuff you want to sell" data-ng-model="form.description" maxlength="700" value="item.description"></textarea><br />
+    <label>Title</label><br />
+    <input type="text" class="formTitle" placeholder="e.g. Volvo S60" data-ng-model="form.title" maxlength="40" required/><br/>
+    <label>Description</label><br />
+    <textarea class="formDescription" placeholder="Describe the stuff you want to sell" data-ng-model="form.description" maxlength="700" value="item.description" required></textarea><br />
     <div class="formPriceEdit">
-        <label>Price(&euro;)</label><p> (max. 9 char.)</p><br />
-        <input type="text" placeholder="e.g. 50 or 19.99" data-ng-model="form.price" maxlength="10" /><br />
+        <label>Price(&euro;)</label><br />
+        <input type="text" placeholder="e.g. 50 or 19.99" data-ng-model="form.price" maxlength="10" required/><br/>
     </div>
     <div class="contact_information">
         <div class="formCategory">
@@ -25,9 +25,9 @@
                 <option value="Turku">Turku</option>
             </select><br/>
         </div>
-        <label>Name</label><p> (max. 30 char.)</p><br/>
+        <label>Name</label><br/>
         <input type="text" class="formTitle" placeholder="e.g. Pavel Bure" data-ng-model="form.name" maxlength="30"/ required><br/>
-        <label>Telephone number</label><p> (max. 10 char.)</p><br/>
+        <label>Telephone number</label><br/>
         <input type="text" class="formTitle" placeholder="e.g. 0461112233" data-ng-model="form.phone" maxlength="10" required/><br/>
 
     </div>
@@ -37,7 +37,7 @@
         </li>
     </flex-slider>
     <div class="formButton">
-        <button type="submit" data-icon="&#xe60a;" data-ng-click="send()"></button>
-        <button type="submit" data-icon="&#xe609;" data-ng-click="cancel()"></button>
+        <button class="button button-action button-large button-rounded" type="submit" data-icon="&#xe60a;" data-ng-click="send()"></button>
+        <button class="button button-caution button-large button-rounded" type="submit" data-icon="&#xe609;" data-ng-click="cancel()"></button>
     </div>
 </form>

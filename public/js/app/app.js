@@ -1,19 +1,24 @@
-var app = angular.module('tori', ['ngRoute', 'ngDialog', 'ngFileUpload', 'angular-flexslider', 'vcRecaptcha']);
+var app = angular.module('tori', ['ngRoute', 'ngDialog', 'ngFileUpload', 'angular-flexslider', 'vcRecaptcha', 'duScroll']);
 
 app.run(function($rootScope, $location) {
     $rootScope.location = $location;
+    $rootScope.weareon = null;
 });
+
+app.value('duScrollDuration', 1000);
 
 app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/list/:list/:page',
         {
             templateUrl: "js/app/views/list.html",
-            controller: "listCTRL"
+            controller: listCTRL,
+            resolve: listCTRL.resolve
         }
     ).when('/item/view/:id',
         {
             templateUrl: "js/app/views/item.html",
-            controller: "itemCTRL"
+            controller: itemCTRL,
+            resolve: itemCTRL.resolve
         }
     ).when('/item/new',
         {
@@ -41,6 +46,19 @@ app.run(function($rootScope, $location) {
 });
 
 /*--------------------------------------------------------------- DIRECTIVES --------------------------------------------------------------*/
+
+app.factory('Database', function ($http) {
+
+    return {
+        getData : function(query) {
+            return $http({
+                url: 'api/data',
+                method: 'GET',
+                params: { query }
+            })
+        }
+    }
+});
 
 // HOVER OF ADS ON MAIN PAGE
 
@@ -91,19 +109,6 @@ app.directive('watchChange', function() {
     };
 });
 
-// app.directive('panel', function () {
-//     return {
-//         restrict:'E',
-//         transclude:true,
-//         scope:{ title:'@title' },
-//         template:'<div class="panel">' +
-//             '<h3>34543</h3>' +
-//             '<div class="panel-content" ng-transclude></div>' +
-//             '</div>',
-//         replace:true
-//     };
-// });
-
 app.service("directiveService", function() {
     var listeners = [];
     return {
@@ -118,25 +123,22 @@ app.service("directiveService", function() {
     };
 });
 
-app.directive('pagibox', function(directiveService, $http, $compile) {
+app.directive('pagibox', function(directiveService, $compile) {
+    //directiveService.subscribe(function(msg) {
     return {
         restrict: 'E',
-        transclude: true,
-        link: function(scope, el, attr) {
-          //scope.name = scope.name + "Third ";
-          directiveService.subscribe(function(msg) {
-            var svg = $compile('<div id="pagination" data-ng-if="!boxShow()"><button data-ng-class="{invisibleArrow: isHidden()}" data-ng-disabled="isHidden()" data-ng-click="previousPage()" data-icon="&#xe60c";></button><input type="text" maxlength="3" data-ng-model="pageNumber" data-ng-enter="goToPage(pageNumber)"><button data-ng-class="{invisibleArrow: !arrowHShow()}" data-ng-click="nextPage()" data-icon="&#xe60d;"></button> <br/><p>/{{pageLimit}}</p></div>')( scope );
-            el.html(svg);
-          });
+        link: function(scope, iel, attr) {
+            var svg = $compile('<div id="pagination" data-ng-if="!boxShow()"><button data-ng-class="{invisibleArrow: isHidden()}" data-ng-disabled="isHidden()" data-ng-click="previousPage()" data-icon="&#xe60c";></button><input type="text" maxlength="3" data-ng-model="pageNumber" data-ng-enter="goToPage(pageNumber)"><button data-ng-class="{invisibleArrow: arrowHShow()}" data-ng-click="nextPage()" data-icon="&#xe60d;"></button> <br/><p>/{{pageLimit}}</p></div>')( scope );
+            iel.html(svg);
+        
         }
-    }
+    }//});
 })
 
 app.directive("jQueryDirective", function(directiveService) {
     directiveService.subscribe(function(msg) {
         // pretend this is jQuery 
-        document.getElementById("example")
-        .innerHTML = msg;
+        document.getElementById("example").innerHTML = msg;
     });
     return {
         restrict: 'E',

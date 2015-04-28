@@ -59,13 +59,14 @@ router.get('/data', function(req, res, next) {
         data.count = count;
       }
     });
+    
     itemService.findList(appr, list, page, function(err, item, next) {
       if (err) {
         console.log(err);
         return res.status(404).end()
       }
       if (item) {
-        if (item.length == 0 || (appr != 1 && !req.isAuthenticated())) return res.status(404).end();
+        if (appr != 1 && !req.isAuthenticated()) return res.status(404).end();
         data.data = item;
         res.json(data);
       }
@@ -78,7 +79,7 @@ router.post('/data', multipartyMiddleware, function(req, res, next) {
   var response = req.body.response;
   recaptcha.checkResponse(response, function(err, response){
     if (err || !response.success) {
-      res.status(500).send('Hello, robot!');
+      res.status(500).send('HELLO, ROBOT!');
     } else {
       var urls = [];
       var files = req.files.file;
@@ -88,7 +89,11 @@ router.post('/data', multipartyMiddleware, function(req, res, next) {
         console.log(files[i].size);
         var randName = Math.random().toString(36).slice(2);
         
-        blobService.createBlockBlobFromLocalFile('images', randName, files[i].path, files[i].size, function(err) {})
+        blobService.createBlockBlobFromLocalFile('images', randName, files[i].path, files[i].size, function(err) {
+          if (err) {
+            res.status(500).send(err);
+          }
+        })
         
         urls.push("https://tori.blob.core.windows.net/images/" + randName);
       }
@@ -97,7 +102,7 @@ router.post('/data', multipartyMiddleware, function(req, res, next) {
    
       itemService.newItem(req.body, function(err) {
         if (err) {
-          console.log(err);
+         res.status(500).send(err);
         }
         res.end();
       });

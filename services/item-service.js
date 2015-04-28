@@ -1,20 +1,28 @@
 var Item = require('../models/item').Item;
+var validator = require('validator');
 
 exports.newItem = function(item, next) {
   
-  // validation here epta // if () {...}
-  //
-  
-  var newItem = new Item({
-    title: item.title,
-    category: item.category,
-    description: item.description,
-    price: item.price,
-    name: item.name,
-    city: item.city,
-    phone: item.phone,
-    img: item.img
-  });
+  if (validator.isAlpha(item.category)
+   && validator.isNumeric(item.price)
+   && validator.isAlpha(item.city)
+   && validator.isAlpha(item.name)
+   && validator.isNumeric(item.phone)
+   && validator.isLength(item.category, 4, 6)
+   && validator.isLength(item.city, 5, 8)
+   && validator.isLength(item.name, 2, 30)
+    ) {
+      var newItem = new Item({
+        title: item.title,
+        category: item.category,
+        description: item.description,
+        price: item.price,
+        name: item.name,
+        city: item.city,
+        phone: item.phone,
+        img: item.img
+      });
+    }
   
   newItem.save(function(err) {
     if (err) {
@@ -31,7 +39,7 @@ exports.findList = function(appr, list, page, next) {
   if (list != null) {
     query.category = list;
   }
-  Item.find(query).skip(pages).sort({created:-1}).limit(25).exec(function(err, item) {
+  Item.find(query).sort({created:-1}).skip(pages).limit(25).exec(function(err, item) {
     next(err, item);    
   });
 };
