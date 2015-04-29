@@ -315,6 +315,7 @@ app.controller('newCTRL', ['$scope', '$http', '$location', 'Upload', 'vcRecaptch
     
     $scope.setResponse = function (response) {
         $scope.form.response = response;
+        console.log(response)
     };
     
     $scope.setWidgetId = function (widgetId) {

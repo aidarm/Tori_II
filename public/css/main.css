@@ -139,7 +139,10 @@ header {
         border-right: none; }
     .top_container ul li.selected {
       background-color: #C1D90D;
-      color: #fff; }
+      color: #fff;
+      -webkit-transition-duration: 0.1s;
+      /* Safari */
+      transition-duration: 0.1s; }
       .top_container ul li.selected [data-icon]::before {
         color: #fff; }
   .top_container select {
@@ -229,7 +232,8 @@ header {
     margin: 40px auto;
     text-align: center;
     width: 100%;
-    display: inline-block; }
+    display: table;
+    padding-top: 40px; }
     .right_container #pagination .invisibleArrow {
       visibility: hidden; }
     .right_container #pagination input {
@@ -243,8 +247,15 @@ header {
     .right_container #pagination button {
       background: none;
       border: none;
-      font-size: 1em;
-      padding: 0; }
+      font-size: 2.4em;
+      padding: 0;
+      margin: 0;
+      display: table-cell;
+      vertical-align: middle;
+      color: #aaa;
+      width: 50px; }
+    .right_container #pagination .right {
+      padding-left: 13px; }
     .right_container #pagination p {
       padding: 0;
       background: #ddd;
@@ -441,7 +452,7 @@ form.placingForm {
     form.placingForm div.formPrice input {
       width: 100%; }
   form.placingForm div.contact_information {
-    background-color: #C1D90D;
+    background-color: #D1DBBD;
     margin-top: 30px;
     padding: 20px; }
     form.placingForm div.contact_information p {
@@ -598,7 +609,7 @@ form.editForm {
     margin-top: 25px;
     margin-bottom: 30px; }
   form.editForm div.contact_information {
-    background-color: #C1D90D;
+    background-color: #D1DBBD;
     margin-top: 15px;
     padding: 20px;
     clear: both; }

@@ -146,6 +146,8 @@ header {
     li.selected {
       background-color: #C1D90D;
       color: #fff;
+      -webkit-transition-duration: 0.1s; /* Safari */
+      transition-duration: 0.1s;
 
       [data-icon]::before {
         color: #fff;
@@ -245,7 +247,8 @@ header {
     margin: 40px auto;
     text-align: center;
     width: 100%;
-    display: inline-block;
+    display: table;
+    padding-top: 40px;
     
     .invisibleArrow {
       visibility: hidden;
@@ -264,8 +267,17 @@ header {
     button {
       background: none;
       border: none;
-      font-size: 1em;
+      font-size: 2.4em;
       padding: 0;
+      margin: 0;
+      display: table-cell;
+      vertical-align: middle;
+      color: #aaa;
+      width: 50px;
+    }
+    
+    .right {
+      padding-left: 13px; ;
     }
     
     p {
@@ -525,7 +537,7 @@ form.placingForm {
   }
 
   div.contact_information {
-    background-color: #C1D90D;
+    background-color: #D1DBBD;
     margin-top: 30px;
     padding: 20px;
 
@@ -764,7 +776,7 @@ form.editForm {
   }
 
   div.contact_information {
-    background-color: #C1D90D;
+    background-color: #D1DBBD;
     margin-top: 15px;
     padding: 20px;
     clear: both;
